@@ -1,0 +1,32 @@
+ext {
+
+    android = [
+            compileSdkVersion: 24,
+            buildToolsVersion: "25.0.0",
+            minSdkVersion    : 15,
+            targetSdkVersion : 19,
+            versionCode      : 1,
+            versionName      : "0.1",
+            applicationId    : "com.mylibarystorehouse",
+            supportVersion   : "24.2.1"
+    ]
+
+    dependencies = [
+            appcompatV7        : "com.android.support:appcompat-v7:$android.supportVersion",
+            support            : "com.android.support:support-v4:$android.supportVersion",
+            design             : "com.android.support:design:$android.supportVersion",
+            recyclerview       : "com.android.support:recyclerview-v7:$android.supportVersion",
+            glide              : "com.github.bumptech.glide:glide:3.7.0",
+            okhttp             : "com.squareup.okhttp3:okhttp:3.5.0",
+            okhttp_logging     : "com.squareup.okhttp3:logging-interceptor:3.5.0",
+            okhttp_integration : "com.github.bumptech.glide:okhttp3-integration:1.4.0@aar",
+            rxandroid          : "io.reactivex:rxandroid:1.2.1",
+            rxjava             : "io.reactivex:rxjava:1.1.9",
+            retrofit           : "com.squareup.retrofit2:retrofit:2.1.0",
+            retrofit_gson      : "com.squareup.retrofit2:converter-gson:2.1.0",
+            retrofit_rxjava    : "com.squareup.retrofit2:adapter-rxjava:2.1.0",
+            retrofit_converters: "com.squareup.retrofit2:retrofit-converters:2.1.0",
+            eventbus            : "de.greenrobot:eventbus:2.4.0",
+            gson                : "com.google.code.gson:gson:2.5"
+    ]
+}

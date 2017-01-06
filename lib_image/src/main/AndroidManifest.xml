@@ -1,0 +1,21 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="client.bluerhino.cn.lib_image">
+
+
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true">
+
+        <activity
+            android:name="client.bluerhino.cn.lib_image.imagebrowse.photoselector.ui.PhotoSelectorActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="图片选择"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"></activity>
+        <activity
+            android:name="client.bluerhino.cn.lib_image.imagebrowse.photoselector.ui.PhotoPreviewActivity"
+            android:label="图片预览"></activity>
+    </application>
+
+</manifest>
