@@ -27,6 +27,10 @@ ext {
             retrofit_rxjava    : "com.squareup.retrofit2:adapter-rxjava:2.1.0",
             retrofit_converters: "com.squareup.retrofit2:retrofit-converters:2.1.0",
             eventbus            : "de.greenrobot:eventbus:2.4.0",
-            gson                : "com.google.code.gson:gson:2.5"
+            gson                : "com.google.code.gson:gson:2.5",
+            crashreport_upgrade :'com.tencent.bugly:crashreport_upgrade:latest.release',
+            nativecrashreport   :'com.tencent.bugly:nativecrashreport:latest.release'
+
+
     ]
 }
