@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 
-
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
@@ -22,10 +21,13 @@ android {
 }
 
 dependencies {
-    compile rootProject.ext.dependencies.glide
-    compile rootProject.ext.dependencies.appcompatV7
-    compile rootProject.ext.dependencies.support
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile rootProject.ext.dependencies.rxandroid
+    compile rootProject.ext.dependencies.rxjava
+    compile rootProject.ext.dependencies.retrofit
+    compile rootProject.ext.dependencies.retrofit_gson
+    compile rootProject.ext.dependencies.retrofit_rxjava
     compile rootProject.ext.dependencies.okhttp
-    compile rootProject.ext.dependencies.okhttp_integration
-}
+    compile rootProject.ext.dependencies.okhttp_logging
 
+}

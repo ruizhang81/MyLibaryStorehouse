@@ -1,0 +1,121 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+apply from: 'fat-aar.gradle'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    embedded project(':lib_crashandupdate')
+    embedded project(':lib_image')
+    embedded project(':lib_http')
+    embedded project(':lib_slidingmenu')
+    embedded project(':lib_listview')
+    embedded project(':lib_storage')
+}
+
+
+//需要自定义部分
+def siteUrl = 'https://github.com/ruizhang81/MyLibaryStorehouse'
+def gitUrl = 'https://github.com/ruizhang81/MyLibaryStorehouse.git'
+
+def _userOrg="ruizhang"
+def _repo = "android"
+def _name = "mylibarystorehouse"
+
+def _id ='ruizhang'
+def _realname ='ruizhang'
+def _email ='ruizhang81@gmail.com'
+
+def _user = 'rui'
+def _apikey = '260e869279016b3621332bd85045e88f7f13949f'
+
+version "0.1"
+group = "com.mylibrary"
+
+
+install{
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                // Add your description here
+                name 'let me develop android software easy'
+                //项目的描述 你可以多写一点
+                url siteUrl
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id _id        //填写的一些基本信息
+                        name _realname
+                        email _email
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar){
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+//task javadoc(type: Javadoc){
+//options.encoding = 'UTF-8'
+//source = android.sourceSets.main.java.srcDirs
+// classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+artifacts {
+//    archives javadocJar
+    archives sourcesJar
+}
+
+bintray {
+    user = _user
+    key = _apikey
+    configurations = ['archives']
+    pkg {
+        userOrg=_userOrg
+        repo = _repo
+        name = _name
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }}

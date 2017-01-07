@@ -1,1 +1,2 @@
-include ':app',':lib_image'
+include ':app',  ':mylibrary',':lib_crashandupdate', ':lib_image', ':lib_http', ':lib_slidingmenu', ':lib_storage','lib_listview'
+
