@@ -1,7 +1,8 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
 
 
-version "0.1"
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -32,3 +33,75 @@ dependencies {
 
 
 }
+
+
+def siteUrl = 'https://github.com/ruizhang81/MyLibaryStorehouse'
+def gitUrl = 'https://github.com/ruizhang81/MyLibaryStorehouse.git'
+version "0.1"
+group = "com.mylibarystorehouse"
+
+install{
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                // Add your description here
+                name 'Let the music to keep up with your tempo'
+                //项目的描述 你可以多写一点
+                url siteUrl
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'ruizhang'        //填写的一些基本信息
+                        name 'ruizhang'
+                        email 'ruizhang81@gmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar){
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+//task javadoc(type: Javadoc){
+//options.encoding = 'UTF-8'
+//source = android.sourceSets.main.java.srcDirs
+// classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+artifacts {
+//    archives javadocJar
+    archives sourcesJar
+}
+Properties properties = new Properties()//读取properties的配置信息，当然直接把信息写到代码里也是可以的
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        userOrg="ruizhang"
+        repo = " mylibarystorehouse"          //这个应该是传到maven的仓库的
+        name = "lib_image"    //发布的项目名字
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+}}
