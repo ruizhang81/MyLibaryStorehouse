@@ -206,18 +206,23 @@ public class SubSwipeRefreshLayout extends BaseSwipeRefreshLayout {
     }
 
     public void setRefreshSuccess() {
-        if (handler != null) {
-            handler.removeMessages(FOOT | LOOP);
-            handler.removeMessages(FOOT | ADD);
-            handler.removeMessages(FOOT | BACK);
-            handler.removeMessages(HEAD | LOOP);
-            handler.removeMessages(HEAD | ADD);
-            handler.removeMessages(HEAD | BACK);
-        }
-        lastDistance = 0;
-        isLoop = false;
-        setRefreshing(false);
-        setLoadMore(false);
+        post(new Runnable() {
+            @Override
+            public void run() {
+                if (handler != null) {
+                    handler.removeMessages(FOOT | LOOP);
+                    handler.removeMessages(FOOT | ADD);
+                    handler.removeMessages(FOOT | BACK);
+                    handler.removeMessages(HEAD | LOOP);
+                    handler.removeMessages(HEAD | ADD);
+                    handler.removeMessages(HEAD | BACK);
+                }
+                lastDistance = 0;
+                isLoop = false;
+                setRefreshing(false);
+                setLoadMore(false);
+            }
+        });
     }
 
     @Override
