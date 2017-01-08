@@ -1,10 +1,13 @@
 package com.lib_http;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
@@ -46,12 +49,12 @@ public class OkHttp {
      * 设置打印拦截器
      */
     private static Interceptor addhttpLoggingInterceptor() {
-        HttpLoggingInterceptor.Level level= HttpLoggingInterceptor.Level.BODY;
+        HttpLoggingInterceptor.Level level = HttpLoggingInterceptor.Level.BODY;
 
-        HttpLoggingInterceptor loggingInterceptor=new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                Log.e("http","Message:"+message);
+                Log.e("http", "Message:" + message);
             }
         });
         loggingInterceptor.setLevel(level);
@@ -99,11 +102,20 @@ public class OkHttp {
                 HttpUrl.Builder builder = originalRequest.url().newBuilder();
                 if (baseParam != null && baseParam.keySet() != null) {
                     Iterator<String> iter = baseParam.keySet().iterator();
+                    StringBuilder sb = new StringBuilder();
+                    boolean isFirst = false;
                     while (iter.hasNext()) {
                         String key = iter.next();
                         String value = baseParam.get(key);
                         builder.addQueryParameter(key, value);
+                        if (!isFirst) {
+                            sb.append("&");
+                        }
+                        sb.append(key);
+                        sb.append("=");
+                        sb.append(value);
                     }
+                    encryption(builder, baseParam, sb.toString());
                 }
                 HttpUrl modifiedUrl = builder.build();
                 Request request = originalRequest.newBuilder().url(modifiedUrl).build();
@@ -113,6 +125,38 @@ public class OkHttp {
         return addQueryParameterInterceptor;
     }
 
+    //加密
+    private static void encryption(HttpUrl.Builder builder, HashMap<String, String> baseParam, String string) {
+        if (!TextUtils.isEmpty(string) && baseParam != null) {
+            if ("MD5".equals(baseParam.get("sign_type"))) {
+                builder.addQueryParameter("sign", md5(string));
+            }
+        }
+    }
+
+    //md5
+    private static String md5(String string) {
+        if (TextUtils.isEmpty(string)) {
+            return "";
+        }
+        MessageDigest md5;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+            byte[] bytes = md5.digest(string.getBytes());
+            String result = "";
+            for (byte b : bytes) {
+                String temp = Integer.toHexString(b & 0xff);
+                if (temp.length() == 1) {
+                    temp = "0" + temp;
+                }
+                result += temp;
+            }
+            return result;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
     private static Cache createCache(Context context) {
         //设置 请求的缓存的大小跟位置
