@@ -12,9 +12,8 @@ import com.tencent.bugly.beta.Beta;
 
 public class CrashAndUpdateUtil {
 
-    private final static String APPID = "09a0e049e5";
 
-    public static void init(Context context, boolean isDebug) {
+    public static void init(Context context,String APPID, boolean isDebug) {
         Bugly.init(context, APPID, isDebug);
         checkUpdate(false);
     }
