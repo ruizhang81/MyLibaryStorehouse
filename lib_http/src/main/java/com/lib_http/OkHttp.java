@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -13,12 +14,16 @@ import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
+import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
+import okio.Buffer;
 
 /**
  * Created by zhangrui on 17/1/2.
@@ -80,7 +85,6 @@ public class OkHttp {
                         requestBuilder.addHeader(key, value);
                     }
                 }
-//                requestBuilder.addHeader("Connection", "close");
                 requestBuilder.method(originalRequest.method(), originalRequest.body());
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
@@ -98,32 +102,95 @@ public class OkHttp {
         Interceptor addQueryParameterInterceptor = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-                Request originalRequest = chain.request();
-                HttpUrl.Builder builder = originalRequest.url().newBuilder();
+
+
+                Request oldRequest = chain.request();
+                //生成新的请求体
+                HttpUrl.Builder newBuilder = oldRequest.url().newBuilder()
+                        .scheme(oldRequest.url().scheme())
+                        .host(oldRequest.url().host());
+                // 向新的请求体里添加公共参数，然后生成公共参数加密串
                 if (baseParam != null && baseParam.keySet() != null) {
                     Iterator<String> iter = baseParam.keySet().iterator();
-                    StringBuilder sb = new StringBuilder();
-                    boolean isFirst = false;
                     while (iter.hasNext()) {
                         String key = iter.next();
                         String value = baseParam.get(key);
-                        builder.addQueryParameter(key, value);
-                        if (!isFirst) {
+                        newBuilder.addQueryParameter(key, value);
+                        Log.e("xxx"," base add param key= "+key+" value="+value);
+                    }
+                }
+                // 新的请求
+                Request newRequest = oldRequest.newBuilder()
+                        .method(oldRequest.method(), oldRequest.body())
+                        .url(newBuilder.build())
+                        .build();
+
+                return chain.proceed(newRequest);
+
+
+                /**
+                Request oldRequest = chain.request();
+
+                //生成新的请求体
+                HttpUrl.Builder newBuilder = oldRequest.url().newBuilder()
+                        .scheme(oldRequest.url().scheme())
+                        .host(oldRequest.url().host());
+
+                //初始化加密串
+                StringBuilder sb = new StringBuilder();
+                boolean notFirst = false;
+
+                // 向新的请求体里添加公共参数，然后生成公共参数加密串
+                if (baseParam != null && baseParam.keySet() != null) {
+                    Iterator<String> iter = baseParam.keySet().iterator();
+                    while (iter.hasNext()) {
+                        String key = iter.next();
+                        String value = baseParam.get(key);
+                        newBuilder.addQueryParameter(key, value);
+                        if (notFirst) {
                             sb.append("&");
                         }
                         sb.append(key);
                         sb.append("=");
                         sb.append(value);
+                        notFirst = true;
+                        Log.e("xxx"," base add param key= "+key+" value="+value);
                     }
-                    encryption(builder, baseParam, sb.toString());
                 }
-                HttpUrl modifiedUrl = builder.build();
-                Request request = originalRequest.newBuilder().url(modifiedUrl).build();
-                return chain.proceed(request);
+
+                //生成动态参数加密串
+                if (oldRequest.body() instanceof FormBody) {
+                    FormBody oidFormBody = (FormBody) oldRequest.body();
+                    for (int i = 0; i < oidFormBody.size(); i++) {
+                        if (notFirst) {
+                            sb.append("&");
+                        }
+                        String key = oidFormBody.encodedName(i);
+                        String value = oidFormBody.encodedValue(i);
+                        sb.append(key);
+                        sb.append("=");
+                        sb.append(value);
+                        Log.e("xxx","new add param key= "+key+" value="+value);
+                        notFirst = true;
+                    }
+                }else{
+                }
+                encryption(newBuilder, baseParam, sb.toString());
+
+
+                // 新的请求
+                Request newRequest = oldRequest.newBuilder()
+                        .method(oldRequest.method(), oldRequest.body())
+                        .url(newBuilder.build())
+                        .build();
+
+                return chain.proceed(newRequest);
+                 **/
             }
         };
         return addQueryParameterInterceptor;
     }
+
 
     //加密
     private static void encryption(HttpUrl.Builder builder, HashMap<String, String> baseParam, String string) {
