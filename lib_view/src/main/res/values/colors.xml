@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="transparent">@android:color/transparent</color>
+
+    <!-- toast -->
+    <color name="color_toast_bg">#FF4081</color>
+    <color name="color_toast_text">#ffffff</color>
+
+    <!-- edittext -->
+    <color name="color_edit_text">#5a5a5a</color>
+    <color name="color_edit_hint">#999999</color>
+    <color name="color_edit_bg">#f6f6f6</color>
+
+    <!-- TEXT COLOR -->
+    <color name="text_sub">#999999</color>
+    <color name="text_main">#5a5a5a</color>
+    <color name="text_red">#FF4081</color>
+
+
+    <!-- BUTTON -->
+    <!-- 按钮背景色 -->
+    <color name="color_base_btn_bg">#079ce9</color>
+    <!-- 按钮按下背景色 -->
+    <color name="color_base_btn_press_bg">#067dba</color>
+    <!-- 按钮字颜色 -->
+    <color name="color_base_btn_text">#ffffff</color>
+    <!-- 按钮字按下颜色 -->
+    <color name="color_base_btn_press_text">#77bdf0</color>
+
+</resources>

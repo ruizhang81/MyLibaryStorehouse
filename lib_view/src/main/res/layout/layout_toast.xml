@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/error_header"
+    android:gravity="center"
+    android:layout_gravity="top"
+    android:textColor="@color/color_toast_text"
+    android:textSize="@dimen/small_size"
+    android:background="@color/color_toast_bg"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:text="账号或密码输入有错误，请您再试试。"/>

@@ -1,0 +1,44 @@
+<resources>
+
+
+
+    <!-- 基础按钮 -->
+    <style name="base_button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@drawable/base_btn_bg</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/base_btn_text_color</item>
+    </style>
+
+    <!--webview 顶部进度条 -->
+    <style name="H5ProgressBar" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/progress_h5</item>
+        <item name="android:indeterminateDrawable">@drawable/progress_h5</item>
+        <item name="android:minHeight">5dip</item>
+        <item name="android:maxHeight">5dip</item>
+    </style>
+
+    <!-- 底部选择菜单 -->
+    <style name="contact_popup_anim_bottom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/popup_push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/popup_push_bottom_out</item>
+    </style>
+
+    <!-- 底部选择菜单 -->
+    <style name="edit" >
+        <item name="android:background">@drawable/bg_edittext</item>
+        <item name="android:textColor">@color/color_edit_text</item>
+        <item name="android:textColorHint">@color/color_edit_hint</item>
+        <item name="android:textSize">@dimen/normal_size</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:lines">1</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+</resources>
