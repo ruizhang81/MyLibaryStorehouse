@@ -11,11 +11,17 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
+
+import java.io.InputStream;
+
+import okhttp3.OkHttpClient;
 
 
 /**
@@ -165,8 +171,8 @@ public class ImageLoad {
     }
 
     private static void init(Context context) {
-//        Glide.get(context).register(GlideUrl.class, InputStream.class,
-//                new OkHttpUrlLoader.Factory(new OkHttpClient()));
+        Glide.get(context).register(GlideUrl.class, InputStream.class,
+                new OkHttpUrlLoader.Factory(new OkHttpClient()));
     }
 
     public static void clear(Context context, View view) {
