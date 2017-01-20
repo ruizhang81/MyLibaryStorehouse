@@ -116,7 +116,6 @@ public class OkHttp {
                         String key = iter.next();
                         String value = baseParam.get(key);
                         newBuilder.addQueryParameter(key, value);
-                        Log.e("xxx"," base add param key= "+key+" value="+value);
                     }
                 }
                 // 新的请求
