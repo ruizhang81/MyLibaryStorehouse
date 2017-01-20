@@ -28,10 +28,10 @@ import java.util.List;
  */
 public class SelectBottomDialogTextView extends TextView {
 
-    private List<? extends PopWindowItem> popWindowItemList = new ArrayList<>();
+    private List<String> popWindowItemList = new ArrayList<>();
     private PopupWindow popupWindow;
     private LayoutInflater inflater;
-    private PopWindowItem selectedItem;
+    private int selectIndex = -1;
     private View parent;
 
     public SelectBottomDialogTextView(Context context) {
@@ -55,27 +55,7 @@ public class SelectBottomDialogTextView extends TextView {
         init();
     }
 
-    public static List<PopWindowItem> convert(List<String> list) {
-        class Item implements PopWindowItem {
-            public String name;
 
-            public Item(String name) {
-                this.name = name;
-            }
-
-            @Override
-            public String getDisplay() {
-                return name;
-            }
-
-        }
-
-        List<PopWindowItem> items = new ArrayList<>();
-        for (String str : list) {
-            items.add(new Item(str));
-        }
-        return items;
-    }
 
     private void init() {
         inflater = LayoutInflater.from(getContext());
@@ -100,19 +80,20 @@ public class SelectBottomDialogTextView extends TextView {
         });
     }
 
-    public PopWindowItem getItem() {
-        return selectedItem;
+    public int getSelectItem() {
+        return selectIndex;
     }
 
-    public void setValues(View view, String defaultValue, List<? extends PopWindowItem> list, boolean hideArror) {
+    public void setValues(View view, String defaultValue, List<String> list, boolean hideArror) {
         setValues(view, defaultValue, list);
         setTextColor(getResources().getColor(R.color.white));
     }
 
-    public void setValues(View view, String defaultValue, List<? extends PopWindowItem> list) {
+    public void setValues(View view, String defaultValue, List<String> list) {
         if (list != null) {
             popWindowItemList = list;
         }
+        selectIndex = list.indexOf(defaultValue);
         setHint(defaultValue);
         parent = view;
         View popupWindow_view = inflater.inflate(R.layout.layout_bottom_dialog, null, false);
@@ -123,8 +104,8 @@ public class SelectBottomDialogTextView extends TextView {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position >= 0 && popWindowItemList.size() > position) {
-                    selectedItem = popWindowItemList.get(position);
-                    setText(selectedItem.getDisplay());
+                    selectIndex = position;
+                    setText(popWindowItemList.get(position));
                 }
                 popupWindow.dismiss();
             }
@@ -157,7 +138,7 @@ public class SelectBottomDialogTextView extends TextView {
         }
 
         @Override
-        public PopWindowItem getItem(int position) {
+        public String getItem(int position) {
             return popWindowItemList.get(position);
         }
 
@@ -177,7 +158,7 @@ public class SelectBottomDialogTextView extends TextView {
             } else {
                 vh = (ViewHolder) converView.getTag();
             }
-            vh.name.setText(getItem(position).getDisplay());
+            vh.name.setText(getItem(position));
             return converView;
         }
 
