@@ -83,7 +83,7 @@ public class ImageProgressView extends ImageView {
         mPaint.setColor(Color.parseColor("#FFFFFF"));
         mPaint.setStrokeWidth(2);
         Rect rect = new Rect();
-        String displayStr = "上传失败\\n点击重新上传";
+        String displayStr = "上传失败\n点击重新上传";
         if (success) {
             displayStr = "上传成功";
         }
