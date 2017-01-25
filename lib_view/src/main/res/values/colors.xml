@@ -12,17 +12,17 @@
     <!-- edittext -->
     <color name="color_edit_text">#5a5a5a</color>
     <color name="color_edit_hint">#999999</color>
-    <color name="color_edit_bg">#f6f6f6</color>
+    <color name="color_edit_bg">#f5f8f9</color>
 
     <!-- TEXT COLOR -->
     <color name="text_sub">#999999</color>
-    <color name="text_main">#5a5a5a</color>
+    <color name="text_main">#5b5a5a</color>
     <color name="text_red">#FF4081</color>
 
 
     <!-- BUTTON -->
-    <!-- 按钮背景色 -->
-    <color name="color_base_btn_bg">#079ce9</color>
+    <!-- 按钮背景色 不可按-->
+    <color name="color_base_btn_bg">#e8e8e8</color>
     <!-- 按钮按下背景色 -->
     <color name="color_base_btn_press_bg">#067dba</color>
     <!-- 按钮字颜色 -->

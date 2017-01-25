@@ -9,6 +9,6 @@
     <dimen name="huge_size">32sp</dimen>
     <dimen name="normal_size">15sp</dimen>
     <dimen name="small_size">12sp</dimen>
-
+    <dimen name="top_toast_size">13sp</dimen>
 
 </resources>

@@ -2,6 +2,7 @@ package com.lib_view.view;
 
 import android.content.Context;
 import android.os.CountDownTimer;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -29,7 +30,8 @@ public abstract class GetCodeEditText extends LinearLayout {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            mBtnGetCode.setText("重新获取(" + mCurrentCountDownTime + ")");
+            mBtnGetCode.setText(mCurrentCountDownTime + "秒");
+            mBtnGetCode.setTextColor(ContextCompat.getColor(getContext(), R.color.text_red));
             mCurrentCountDownTime--;
         }
 
