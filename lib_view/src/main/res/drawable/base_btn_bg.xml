@@ -3,7 +3,7 @@
 
     <item android:state_enabled="false">
         <shape>
-            <solid android:color="@color/color_base_btn_bg" />
+            <solid android:color="@color/color_base_btn_disable_bg" />
 
             <corners android:radius="3dp" />
         </shape>

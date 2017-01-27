@@ -21,13 +21,17 @@
 
 
     <!-- BUTTON -->
-    <!-- 按钮背景色 不可按-->
-    <color name="color_base_btn_bg">#e8e8e8</color>
-    <!-- 按钮按下背景色 -->
-    <color name="color_base_btn_press_bg">#067dba</color>
-    <!-- 按钮字颜色 -->
+    <!-- 可按 背景色-->
+    <color name="color_base_btn_bg">#ea1e63</color>
+    <!-- 不可按 背景色-->
+    <color name="color_base_btn_disable_bg">#e8e8e8</color>
+    <!-- 按下 背景色-->
+    <color name="color_base_btn_press_bg">#a21446</color>
+    <!-- 可按 字颜色 -->
+    <color name="color_base_btn_disable_text">#ffffff</color>
+    !-- 不可按 字颜色 -->
     <color name="color_base_btn_text">#ffffff</color>
-    <!-- 按钮字按下颜色 -->
-    <color name="color_base_btn_press_text">#77bdf0</color>
+    <!-- 按下 字颜色 -->
+    <color name="color_base_btn_press_text">#ffffff</color>
 
 </resources>
