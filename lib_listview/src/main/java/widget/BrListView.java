@@ -50,7 +50,7 @@ public class BrListView extends LinearLayout implements IListView {
         layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(mContext, VERTICAL, mDividerColor, mDividerHeight));
-
+        setNeedLoadMore(false);
     }
 
 
@@ -101,6 +101,7 @@ public class BrListView extends LinearLayout implements IListView {
 
     @Override
     public void setOnLoadMoreStartListener(final OnStartListener onStartListener) {
+        setNeedLoadMore(true);
         swipeLayout.setRefreshFootListener(onStartListener);
     }
 
