@@ -162,11 +162,10 @@ public class ClearEditText extends EditText implements
             } else {
                 mOnTextListener.onChange(editable.length());
             }
-            if (mFormatWay != FORMAT_NOTHING) {
-                String strAfter = editable.toString();
-                checkInput(strAfter);
-            }
-
+        }
+        if (mFormatWay != FORMAT_NOTHING) {
+            String strAfter = editable.toString();
+            checkInput(strAfter);
         }
     }
 
