@@ -11,11 +11,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.lib_view.R;
 
 
-public abstract class GetCodeEditText extends LinearLayout {
+public abstract class GetCodeEditText extends RelativeLayout {
 
     private static final String TAG = "GetCodeEditText";
     private static final int GET_CODE_MAX_TIME = 30;
