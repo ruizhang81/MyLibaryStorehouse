@@ -29,8 +29,9 @@ ext {
             eventbus            : "de.greenrobot:eventbus:2.4.0",
             gson                : "com.google.code.gson:gson:2.5",
             crashreport_upgrade :'com.tencent.bugly:crashreport_upgrade:latest.release',
-            nativecrashreport   :'com.tencent.bugly:nativecrashreport:latest.release'
-
+            nativecrashreport   :'com.tencent.bugly:nativecrashreport:latest.release',
+            zxing_core          : "com.google.zxing:core:3.2.1",
+            zxing_android_core  : "com.google.zxing:android-core:3.2.1",
 
     ]
 }
