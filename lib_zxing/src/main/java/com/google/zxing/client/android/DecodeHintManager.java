@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
 /**
  * @author Lachezar Dobrev
  */
-final class DecodeHintManager {
+final public class DecodeHintManager {
 
     private static final String TAG = DecodeHintManager.class.getSimpleName();
 

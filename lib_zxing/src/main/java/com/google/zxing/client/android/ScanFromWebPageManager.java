@@ -30,7 +30,7 @@ import java.net.URLEncoder;
  *
  * @author Sean Owen
  */
-final class ScanFromWebPageManager {
+final public class ScanFromWebPageManager {
 
     private static final CharSequence CODE_PLACEHOLDER = "{CODE}";
     private static final CharSequence RAW_CODE_PLACEHOLDER = "{RAWCODE}";

@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-final class DecodeFormatManager {
+final public class DecodeFormatManager {
 
     static final Set<BarcodeFormat> PRODUCT_FORMATS;
     static final Set<BarcodeFormat> INDUSTRIAL_FORMATS;
