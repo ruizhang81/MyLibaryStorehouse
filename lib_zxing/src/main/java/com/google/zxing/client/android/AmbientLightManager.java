@@ -42,7 +42,7 @@ final public class AmbientLightManager implements SensorEventListener {
     private CameraManager cameraManager;
     private Sensor lightSensor;
 
-    AmbientLightManager(Context context) {
+    public AmbientLightManager(Context context) {
         this.context = context;
     }
 

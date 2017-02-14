@@ -1,6 +1,7 @@
+package com.mylibarystorehouse;
+
 import android.app.Application;
 
-import client.bluerhino.cn.lib_image.imageutil.ImageLoad;
 
 /**
  * Created by zhangrui on 17/1/7.

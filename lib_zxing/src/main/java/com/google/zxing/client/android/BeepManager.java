@@ -44,7 +44,7 @@ final public class BeepManager implements MediaPlayer.OnErrorListener, Closeable
     private boolean playBeep;
     private boolean vibrate;
 
-    BeepManager(Activity activity) {
+    public BeepManager(Activity activity) {
         this.activity = activity;
         this.mediaPlayer = null;
         updatePrefs();

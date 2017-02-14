@@ -39,7 +39,7 @@ final public class InactivityTimer {
     private boolean registered;
     private AsyncTask<Object, Object, Object> inactivityTask;
 
-    InactivityTimer(Activity activity) {
+    public  InactivityTimer(Activity activity) {
         this.activity = activity;
         powerStatusReceiver = new PowerStatusReceiver();
         registered = false;
