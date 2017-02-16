@@ -16,7 +16,7 @@
         android:textColor="@color/color_edit_text"
         android:textColorHint="@color/color_edit_hint"
         android:lines="1"
-        android:gravity="center"/>
+        android:gravity="center_vertical|left"/>
 
     <ImageView
         android:id="@+id/image"

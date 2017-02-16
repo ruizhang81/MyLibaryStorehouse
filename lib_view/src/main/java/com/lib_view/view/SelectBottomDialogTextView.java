@@ -82,7 +82,7 @@ public class SelectBottomDialogTextView extends RelativeLayout {
                     popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                         @Override
                         public void onDismiss() {
-                            image.setSelected(true);
+                            image.setSelected(false);
                         }
                     });
 //            int[] location = new int[2];
