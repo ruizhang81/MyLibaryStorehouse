@@ -6,7 +6,7 @@
     <color name="transparent">@android:color/transparent</color>
 
     <!-- toast -->
-    <color name="color_toast_bg">#FF4081</color>
+    <color name="color_toast_bg">#e91e63</color>
     <color name="color_toast_text">#ffffff</color>
 
     <!-- edittext -->
@@ -17,7 +17,7 @@
     <!-- TEXT COLOR -->
     <color name="text_sub">#999999</color>
     <color name="text_main">#5b5a5a</color>
-    <color name="text_red">#FF4081</color>
+    <color name="text_red">#e91e63</color>
 
 
     <!-- BUTTON -->

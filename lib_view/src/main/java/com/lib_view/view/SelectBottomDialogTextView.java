@@ -2,8 +2,10 @@ package com.lib_view.view;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,8 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -26,13 +31,15 @@ import java.util.List;
 /**
  * Created by ruizhang on 1/5/16.
  */
-public class SelectBottomDialogTextView extends TextView {
+public class SelectBottomDialogTextView extends RelativeLayout {
 
     private List<String> popWindowItemList = new ArrayList<>();
     private PopupWindow popupWindow;
     private LayoutInflater inflater;
     private int selectIndex = -1;
     private View parent;
+    private TextView text;
+    private ImageView image;
 
     public SelectBottomDialogTextView(Context context) {
         super(context);
@@ -55,10 +62,14 @@ public class SelectBottomDialogTextView extends TextView {
         init();
     }
 
-
-
     private void init() {
         inflater = LayoutInflater.from(getContext());
+        inflater.inflate(R.layout.layout_select_bottom_dialog_textview,this,true);
+
+        text = (TextView)findViewById(R.id.text);
+        image = (ImageView)findViewById(R.id.image);
+        image.setSelected(false);
+
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +78,13 @@ public class SelectBottomDialogTextView extends TextView {
                 }
                 if (!popupWindow.isShowing()) {
                     popupWindow.showAtLocation(parent, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-
+                    image.setSelected(true);
+                    popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            image.setSelected(true);
+                        }
+                    });
 //            int[] location = new int[2];
 //            parent.getLocationOnScreen(location);
 //            showAtLocation(context.getCurrentFocus(), Gravity.NO_GRAVITY, view.getWidth() / 2 - popupWidth / 2,
@@ -78,6 +95,8 @@ public class SelectBottomDialogTextView extends TextView {
                 }
             }
         });
+
+
     }
 
     public int getSelectItem() {
@@ -126,8 +145,28 @@ public class SelectBottomDialogTextView extends TextView {
     }
 
 
+    private void setText(String str){
+        text.setText(str);
+    }
+
+    private void setHint(String str){
+        text.setHint(str);
+    }
+
+    private void setTextColor(int color){
+        text.setTextColor(color);
+    }
+
     public interface PopWindowItem {
         String getDisplay();
+    }
+
+    public void addTextChangedListener(TextWatcher textWatcher ){
+        text.addTextChangedListener(textWatcher);
+    }
+
+    public CharSequence getText() {
+        return text.getText();
     }
 
     class FloorAdapter extends BaseAdapter {

@@ -19,7 +19,7 @@ import com.lib_view.R;
 public abstract class GetCodeEditText extends RelativeLayout {
 
     private static final String TAG = "GetCodeEditText";
-    private static final int GET_CODE_MAX_TIME = 30;
+    private static final int GET_CODE_MAX_TIME = 60;
     private ClearEditText codeEdit;
     private ClearEditText phoneEdit;
     private Button mBtnGetCode;
