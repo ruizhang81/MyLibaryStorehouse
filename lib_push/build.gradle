@@ -8,9 +8,9 @@ android {
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         manifestPlaceholders =[
-                JPUSH_PKGNAME : "test_JPUSH_PKGNAME",
-                JPUSH_APPKEY : "test_JPUSH_APPKEY", //JPush上注册的包名对应的appkey.
-                JPUSH_CHANNEL : "test_JPUSH_CHANNEL"
+                JPUSH_PKGNAME : 'test_JPUSH_PKGNAME',
+                JPUSH_APPKEY : 'test_JPUSH_APPKEY',
+                JPUSH_CHANNEL : 'test_JPUSH_CHANNEL'
         ]
     }
     buildTypes {
