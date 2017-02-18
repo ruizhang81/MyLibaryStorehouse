@@ -2,7 +2,6 @@ package com.lib_view.view;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.text.TextWatcher;
@@ -15,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -40,6 +38,15 @@ public class SelectBottomDialogTextView extends RelativeLayout {
     private View parent;
     private TextView text;
     private ImageView image;
+    private OnSelectCallback mCallback;
+
+    public interface OnSelectCallback{
+        void callback(int item);
+    }
+
+    public void setOnSelectCallback(OnSelectCallback callback){
+        mCallback = callback;
+    }
 
     public SelectBottomDialogTextView(Context context) {
         super(context);
@@ -125,6 +132,10 @@ public class SelectBottomDialogTextView extends RelativeLayout {
                 if (position >= 0 && popWindowItemList.size() > position) {
                     selectIndex = position;
                     setText(popWindowItemList.get(position));
+                    if(mCallback !=null){
+                        mCallback.callback(position);
+                    }
+
                 }
                 popupWindow.dismiss();
             }

@@ -35,6 +35,7 @@ dependencies {
     embedded project(':lib_storage')
     embedded project(':lib_view')
     embedded project(':lib_zxing')
+    embedded project(':lib_push')
 }
 
 
@@ -53,7 +54,7 @@ def _email ='ruizhang81@gmail.com'
 def _user = 'rui'
 def _apikey = '260e869279016b3621332bd85045e88f7f13949f'
 
-version "0.945"
+version "0.948"
 group = "com.mylibrary"
 
 
