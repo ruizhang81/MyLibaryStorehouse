@@ -1,6 +1,7 @@
 package com.lib_view.view;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -84,7 +85,9 @@ public class SelectBottomDialogTextView extends RelativeLayout {
                     return;
                 }
                 if (!popupWindow.isShowing()) {
-                    popupWindow.showAtLocation(parent, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                    Rect frame = new Rect();
+                    parent.getWindowVisibleDisplayFrame(frame);
+                    popupWindow.showAtLocation(parent, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, frame.top);
                     image.setSelected(true);
                     popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                         @Override
@@ -145,6 +148,7 @@ public class SelectBottomDialogTextView extends RelativeLayout {
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         popupWindow.setAnimationStyle(R.style.contact_popup_anim_bottom);
         popupWindow.setFocusable(true);
+        popupWindow.setClippingEnabled(false);
 
         View back_bg = popupWindow_view.findViewById(R.id.back_bg);
         back_bg.setOnTouchListener(new OnTouchListener() {
