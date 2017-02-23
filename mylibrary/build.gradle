@@ -26,7 +26,6 @@ android {
 apply from: 'fat-aar.gradle'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     embedded project(':lib_crashandupdate')
     embedded project(':lib_image')
     embedded project(':lib_http')

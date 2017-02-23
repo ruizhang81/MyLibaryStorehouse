@@ -22,7 +22,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile rootProject.ext.dependencies.crashreport_upgrade
     compile rootProject.ext.dependencies.nativecrashreport
 }
