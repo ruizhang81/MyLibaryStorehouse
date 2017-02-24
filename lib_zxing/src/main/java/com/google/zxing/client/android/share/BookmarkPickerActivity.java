@@ -20,7 +20,6 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -50,7 +49,6 @@ public final class BookmarkPickerActivity extends ListActivity {
         cursor = getContentResolver().query(Uri.parse("content://browser/bookmarks"), BOOKMARK_PROJECTION,
                 BOOKMARK_SELECTION, null, null);
         if (cursor == null) {
-            Log.w(TAG, "No cursor returned for bookmark query");
             finish();
             return;
         }

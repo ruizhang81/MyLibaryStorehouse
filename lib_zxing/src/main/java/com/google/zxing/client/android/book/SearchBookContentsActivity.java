@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -182,10 +181,8 @@ public final class SearchBookContentsActivity extends Activity {
                 CharSequence content = HttpHelper.downloadViaHttp(uri, HttpHelper.ContentType.JSON);
                 return new JSONObject(content.toString());
             } catch (IOException ioe) {
-                Log.w(TAG, "Error accessing book search", ioe);
                 return null;
             } catch (JSONException je) {
-                Log.w(TAG, "Error accessing book search", je);
                 return null;
             }
         }
@@ -225,7 +222,6 @@ public final class SearchBookContentsActivity extends Activity {
                     resultListView.setAdapter(null);
                 }
             } catch (JSONException e) {
-                Log.w(TAG, "Bad JSON from book search", e);
                 resultListView.setAdapter(null);
                 headerView.setText(R.string.msg_sbc_failed);
             }
@@ -242,7 +238,6 @@ public final class SearchBookContentsActivity extends Activity {
                 pageNumber = json.optString("page_number");
                 snippet = json.optString("snippet_text");
             } catch (JSONException e) {
-                Log.w(TAG, e);
                 // Never seen in the wild, just being complete.
                 return new SearchBookContentsResult(getString(R.string.msg_sbc_no_page_returned), "", "", false);
             }

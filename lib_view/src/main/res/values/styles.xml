@@ -1,7 +1,6 @@
 <resources>
 
 
-
     <!-- 基础按钮 -->
     <style name="base_button">
         <item name="android:layout_width">match_parent</item>
@@ -27,7 +26,7 @@
     </style>
 
     <!-- 底部选择菜单 -->
-    <style name="edit" >
+    <style name="edit">
         <item name="android:background">@drawable/bg_edittext</item>
         <item name="android:textColor">@color/color_edit_text</item>
         <item name="android:textColorHint">@color/color_edit_hint</item>

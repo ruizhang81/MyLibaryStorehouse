@@ -31,7 +31,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -711,7 +710,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             throw new IllegalStateException("No SurfaceHolder provided");
         }
         if (cameraManager.isOpen()) {
-            Log.w(TAG, "initCamera() while already open -- late SurfaceView callback?");
             return;
         }
         try {
@@ -722,12 +720,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             }
             decodeOrStoreSavedBitmap(null, null);
         } catch (IOException ioe) {
-            Log.w(TAG, ioe);
             displayFrameworkBugMessageAndExit();
         } catch (RuntimeException e) {
             // Barcode Scanner has seen crashes in the wild of this variety:
             // java.?lang.?RuntimeException: Fail to connect to camera service
-            Log.w(TAG, "Unexpected error initializing camera", e);
             displayFrameworkBugMessageAndExit();
         }
     }

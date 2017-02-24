@@ -1,6 +1,5 @@
 package com.mylibarystorehouse;
 
-import android.util.Log;
 
 import com.lib_http.RetrofitFactory;
 
@@ -21,12 +20,11 @@ import rx.schedulers.Schedulers;
 public class httptest {
 
 
+    private final static String TAG = "HttpAction";
 
-    public static void  run(){
+    public static void run() {
         getCityData();
     }
-
-    private final static String TAG = "HttpAction";
 
     private static ApiInterface createApiInterface() {
         HashMap<String, String> baseHeader = new HashMap<>();
@@ -35,11 +33,11 @@ public class httptest {
         baseParam.put("baseparam", "baseparam value");
 
 
-        Retrofit retrofit = RetrofitFactory.getRetrofit(MyApplication.instance,ApiInterface.BASE_DOMAIN, baseHeader, baseParam);
+        Retrofit retrofit = RetrofitFactory.getRetrofit(MyApplication.instance, ApiInterface.BASE_DOMAIN, baseHeader, baseParam);
         return retrofit.create(ApiInterface.class);
     }
 
-    private static  void action(Observable<String> observable) {
+    private static void action(Observable<String> observable) {
         observable.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -57,7 +55,7 @@ public class httptest {
 
                     @Override
                     public void onNext(String responseBean) {
-                        Log.e("xxx","responseBean");
+
                     }
                 });
     }

@@ -29,9 +29,6 @@ public class SubSwipeRefreshLayout extends BaseSwipeRefreshLayout {
             R.drawable.timg5,
             R.drawable.timg6,
     };
-    private int index;
-    private int lastDistance;
-    private boolean isLoop;
     private final static long STEP = 50;//下拉步进
     private final static long SPACE = 500;//播放的时候间隔
     private final static byte LOOP = 0x01;
@@ -39,23 +36,15 @@ public class SubSwipeRefreshLayout extends BaseSwipeRefreshLayout {
     private final static byte BACK = 0x03;
     private final static byte HEAD = 0x10;
     private final static byte FOOT = 0x20;
+    private int index;
+    private int lastDistance;
+    private boolean isLoop;
     private BrListView.OnStartListener mRefreshHeadListener;
     private BrListView.OnStartListener mRefreshFootListener;
     private ImageView footImageView;
     private ImageView headImageView;
     private View mEmptyView;
     private boolean hidenEmpty;
-
-    public SubSwipeRefreshLayout(Context context) {
-        super(context, null);
-    }
-
-    public SubSwipeRefreshLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        initHeader();
-        initFooter();
-    }
-
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -98,6 +87,16 @@ public class SubSwipeRefreshLayout extends BaseSwipeRefreshLayout {
             }
         }
     };
+
+    public SubSwipeRefreshLayout(Context context) {
+        super(context, null);
+    }
+
+    public SubSwipeRefreshLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initHeader();
+        initFooter();
+    }
 
     private void initHeader() {
         View headerView = LayoutInflater.from(getContext())

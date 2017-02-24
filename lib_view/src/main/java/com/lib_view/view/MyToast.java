@@ -29,15 +29,15 @@ public class MyToast {
         }
     }
 
-    public static void showHeaderToast(Context context,String content) {
+    public static void showHeaderToast(Context context, String content) {
         if (!TextUtils.isEmpty(content)) {
             if (SystemClock.elapsedRealtime() - mTime > 2000) {
 
                 Toast toast = new Toast(context);
                 TextView textView =
-                        (TextView) LayoutInflater.from(context).inflate(R.layout.layout_toast,null);
+                        (TextView) LayoutInflater.from(context).inflate(R.layout.layout_toast, null);
                 textView.setText(content);
-                toast.setGravity(Gravity.FILL_HORIZONTAL|Gravity.TOP, 0,0);
+                toast.setGravity(Gravity.FILL_HORIZONTAL | Gravity.TOP, 0, 0);
                 toast.setView(textView);
                 toast.show();
 
@@ -48,8 +48,6 @@ public class MyToast {
 
         }
     }
-
-
 
 
 }

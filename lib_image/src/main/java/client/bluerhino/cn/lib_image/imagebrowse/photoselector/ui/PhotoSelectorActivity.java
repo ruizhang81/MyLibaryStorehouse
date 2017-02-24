@@ -235,8 +235,8 @@ public class PhotoSelectorActivity extends Activity implements
         } else {
             Intent data = new Intent();
             data.putParcelableArrayListExtra("photos", selected);
-            data.putExtra(pic_type,getIntent().getIntExtra(pic_type,-1));
-            data.putExtra(pic_index,getIntent().getIntExtra(pic_index,-1));
+            data.putExtra(pic_type, getIntent().getIntExtra(pic_type, -1));
+            data.putExtra(pic_index, getIntent().getIntExtra(pic_index, -1));
             setResult(RESULT_OK, data);
         }
         finish();

@@ -19,7 +19,6 @@ package com.google.zxing.client.android.result;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.util.Log;
 
 import com.google.zxing.client.android.R;
 import com.google.zxing.client.result.CalendarParsedResult;
@@ -141,7 +140,6 @@ public final class CalendarResultHandler extends ResultHandler {
             // Do this manually at first
             rawLaunchIntent(intent);
         } catch (ActivityNotFoundException anfe) {
-            Log.w(TAG, "No calendar app available that responds to " + Intent.ACTION_INSERT);
             // For calendar apps that don't like "INSERT":
             intent.setAction(Intent.ACTION_EDIT);
             launchIntent(intent); // Fail here for real if nothing can handle it

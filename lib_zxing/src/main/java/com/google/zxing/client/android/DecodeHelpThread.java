@@ -21,7 +21,6 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
@@ -92,7 +91,6 @@ final class DecodeHelpThread extends Thread {
             hints.put(DecodeHintType.CHARACTER_SET, characterSet);
         }
         hints.put(DecodeHintType.NEED_RESULT_POINT_CALLBACK, resultPointCallback);
-        Log.i("DecodeThread", "Hints: " + hints);
     }
 
     Handler getHandler() {

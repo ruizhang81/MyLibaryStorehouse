@@ -20,7 +20,6 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 import com.lib_view.R;
 
 import java.util.ArrayList;
@@ -40,14 +39,6 @@ public class SelectBottomDialogTextView extends RelativeLayout {
     private TextView text;
     private ImageView image;
     private OnSelectCallback mCallback;
-
-    public interface OnSelectCallback{
-        void callback(int item);
-    }
-
-    public void setOnSelectCallback(OnSelectCallback callback){
-        mCallback = callback;
-    }
 
     public SelectBottomDialogTextView(Context context) {
         super(context);
@@ -70,12 +61,16 @@ public class SelectBottomDialogTextView extends RelativeLayout {
         init();
     }
 
+    public void setOnSelectCallback(OnSelectCallback callback) {
+        mCallback = callback;
+    }
+
     private void init() {
         inflater = LayoutInflater.from(getContext());
-        inflater.inflate(R.layout.layout_select_bottom_dialog_textview,this,true);
+        inflater.inflate(R.layout.layout_select_bottom_dialog_textview, this, true);
 
-        text = (TextView)findViewById(R.id.text);
-        image = (ImageView)findViewById(R.id.image);
+        text = (TextView) findViewById(R.id.text);
+        image = (ImageView) findViewById(R.id.image);
         image.setSelected(false);
 
         setOnClickListener(new OnClickListener() {
@@ -136,7 +131,7 @@ public class SelectBottomDialogTextView extends RelativeLayout {
                 if (position >= 0 && popWindowItemList.size() > position) {
                     selectIndex = position;
                     setText(popWindowItemList.get(position));
-                    if(mCallback !=null){
+                    if (mCallback != null) {
                         mCallback.callback(position);
                     }
 
@@ -160,29 +155,32 @@ public class SelectBottomDialogTextView extends RelativeLayout {
         });
     }
 
-
-    private void setText(String str){
-        text.setText(str);
-    }
-
-    private void setHint(String str){
+    private void setHint(String str) {
         text.setHint(str);
     }
 
-    private void setTextColor(int color){
+    private void setTextColor(int color) {
         text.setTextColor(color);
     }
 
-    public interface PopWindowItem {
-        String getDisplay();
-    }
-
-    public void addTextChangedListener(TextWatcher textWatcher ){
+    public void addTextChangedListener(TextWatcher textWatcher) {
         text.addTextChangedListener(textWatcher);
     }
 
     public CharSequence getText() {
         return text.getText();
+    }
+
+    private void setText(String str) {
+        text.setText(str);
+    }
+
+    public interface OnSelectCallback {
+        void callback(int item);
+    }
+
+    public interface PopWindowItem {
+        String getDisplay();
     }
 
     class FloorAdapter extends BaseAdapter {

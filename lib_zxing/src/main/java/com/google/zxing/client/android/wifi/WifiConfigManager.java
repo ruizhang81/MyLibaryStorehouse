@@ -19,7 +19,6 @@ package com.google.zxing.client.android.wifi;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.zxing.client.result.WifiParsedResult;
 
@@ -49,7 +48,6 @@ public final class WifiConfigManager extends AsyncTask<WifiParsedResult, Object,
     private static void updateNetwork(WifiManager wifiManager, WifiConfiguration config) {
         Integer foundNetworkID = findNetworkInExistingConfig(wifiManager, config.SSID);
         if (foundNetworkID != null) {
-            Log.i(TAG, "Removing old configuration for network " + config.SSID);
             wifiManager.removeNetwork(foundNetworkID);
             wifiManager.saveConfiguration();
         }
@@ -57,13 +55,10 @@ public final class WifiConfigManager extends AsyncTask<WifiParsedResult, Object,
         if (networkId >= 0) {
             // Try to disable the current network and start a new one.
             if (wifiManager.enableNetwork(networkId, true)) {
-                Log.i(TAG, "Associating to network " + config.SSID);
                 wifiManager.saveConfiguration();
             } else {
-                Log.w(TAG, "Failed to enable network " + config.SSID);
             }
         } else {
-            Log.w(TAG, "Unable to add network " + config.SSID);
         }
     }
 
@@ -179,21 +174,16 @@ public final class WifiConfigManager extends AsyncTask<WifiParsedResult, Object,
         WifiParsedResult theWifiResult = args[0];
         // Start WiFi, otherwise nothing will work
         if (!wifiManager.isWifiEnabled()) {
-            Log.i(TAG, "Enabling wi-fi...");
             if (wifiManager.setWifiEnabled(true)) {
-                Log.i(TAG, "Wi-fi enabled");
             } else {
-                Log.w(TAG, "Wi-fi could not be enabled!");
                 return null;
             }
             // This happens very quickly, but need to wait for it to enable. A little busy wait?
             int count = 0;
             while (!wifiManager.isWifiEnabled()) {
                 if (count >= 10) {
-                    Log.i(TAG, "Took too long to enable wi-fi, quitting");
                     return null;
                 }
-                Log.i(TAG, "Still waiting for wi-fi to enable...");
                 try {
                     Thread.sleep(1000L);
                 } catch (InterruptedException ie) {
@@ -207,7 +197,6 @@ public final class WifiConfigManager extends AsyncTask<WifiParsedResult, Object,
         try {
             networkType = NetworkType.forIntentValue(networkTypeString);
         } catch (IllegalArgumentException ignored) {
-            Log.w(TAG, "Bad network type; see NetworkType values: " + networkTypeString);
             return null;
         }
         if (networkType == NetworkType.NO_PASSWORD) {

@@ -23,7 +23,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.URLSpan;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.google.zxing.client.android.history.HistoryManager;
@@ -112,7 +111,6 @@ public abstract class SupplementalInfoRetriever extends AsyncTask<Object, Object
         try {
             retrieveSupplementalInfo();
         } catch (IOException e) {
-            Log.w(TAG, e);
         }
         return null;
     }

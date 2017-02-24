@@ -7,10 +7,8 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.lib_view.R;
@@ -102,7 +100,7 @@ public abstract class GetCodeEditText extends RelativeLayout {
                 //检查手机号合法
                 String phoneNumToGetCode = phoneEdit.getText().toString().replaceAll(" ", "");
                 if (TextUtils.isEmpty(phoneNumToGetCode) || phoneNumToGetCode.length() != 11 || !phoneNumToGetCode.startsWith("1")) {
-                    MyToast.showToast(getContext(),"请输入正确的手机号码");
+                    MyToast.showToast(getContext(), "请输入正确的手机号码");
                     return;
                 }
                 mBtnGetCode.setEnabled(false);
@@ -115,7 +113,7 @@ public abstract class GetCodeEditText extends RelativeLayout {
 
                     @Override
                     public void onSuccess() {
-                        MyToast.showHeaderToast(getContext(),"验证码发送成功请注意查收");
+                        MyToast.showHeaderToast(getContext(), "验证码发送成功请注意查收");
                         mCountDownTimer.start();
                         mBtnGetCode.setEnabled(false);
                     }
@@ -123,7 +121,6 @@ public abstract class GetCodeEditText extends RelativeLayout {
             }
         });
     }
-
 
 
     public String getText() {
@@ -137,23 +134,26 @@ public abstract class GetCodeEditText extends RelativeLayout {
         this.onTextListener = onTextListener;
     }
 
-    public interface OnTextListener {
-        void onChange(int length);
-    }
-
-
-    /** 网络请求**/
-    public interface OnHttpActionCallBack {
-        void onFinish();
-        void onSuccess();
-    }
-
-
     /**
      * 获取验证码
      *
      * @param phoneNum 合法的手机号
      *                 1短信验证码 2语音验证码
      */
-    public abstract void getSecurityCode(String phoneNum,String flag,OnHttpActionCallBack callback);
+    public abstract void getSecurityCode(String phoneNum, String flag, OnHttpActionCallBack callback);
+
+
+    public interface OnTextListener {
+        void onChange(int length);
+    }
+
+
+    /**
+     * 网络请求
+     **/
+    public interface OnHttpActionCallBack {
+        void onFinish();
+
+        void onSuccess();
+    }
 }

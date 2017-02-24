@@ -21,7 +21,6 @@ import android.content.SharedPreferences;
 import android.hardware.Camera;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.google.zxing.client.android.PreferencesActivity;
 
@@ -55,7 +54,6 @@ final class AutoFocusManager implements Camera.AutoFocusCallback {
         useAutoFocus =
                 sharedPrefs.getBoolean(PreferencesActivity.KEY_AUTO_FOCUS, true) &&
                         FOCUS_MODES_CALLING_AF.contains(currentFocusMode);
-        Log.i(TAG, "Current focus mode '" + currentFocusMode + "'; use auto focus? " + useAutoFocus);
         start();
     }
 
@@ -72,7 +70,6 @@ final class AutoFocusManager implements Camera.AutoFocusCallback {
                 newTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 outstandingTask = newTask;
             } catch (RejectedExecutionException ree) {
-                Log.w(TAG, "Could not request auto focus", ree);
             }
         }
     }
@@ -86,7 +83,6 @@ final class AutoFocusManager implements Camera.AutoFocusCallback {
                     focusing = true;
                 } catch (RuntimeException re) {
                     // Have heard RuntimeException reported in Android 4.0.x+; continue?
-                    Log.w(TAG, "Unexpected exception while focusing", re);
                     // Try again later to keep cycle going
                     autoFocusAgainLater();
                 }
@@ -112,7 +108,6 @@ final class AutoFocusManager implements Camera.AutoFocusCallback {
                 camera.cancelAutoFocus();
             } catch (RuntimeException re) {
                 // Have heard RuntimeException reported in Android 4.0.x+; continue?
-                Log.w(TAG, "Unexpected exception while cancelling focusing", re);
             }
         }
     }

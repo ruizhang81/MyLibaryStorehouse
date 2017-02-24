@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -63,7 +62,6 @@ public class ImageUtil {
         if (be <= 0) {
             be = 1;
         }
-        Log.e(ImageUtilTAG, " compress size:" + be);
         newOpts.inSampleSize = be;// 设置缩放比例
         newOpts.inPreferredConfig = Bitmap.Config.RGB_565;
         newOpts.inJustDecodeBounds = false;
@@ -72,7 +70,6 @@ public class ImageUtil {
 
         int degree = readPictureDegree(path);
         if (degree != 0) {
-            Log.e(ImageUtilTAG, "degree:" + degree);
             //旋转图片 动作
             Matrix matrix = new Matrix();
             matrix.postRotate(degree);
@@ -134,7 +131,6 @@ public class ImageUtil {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             int options = 100;
             int size = baos.toByteArray().length / 1024;
-            Log.e(ImageUtilTAG, "pre compress:" + size);
             while (size > needSize && options > 0) {
                 baos.reset();// 重置baos即清空baos
                 options -= 10;// 每次都减少10
@@ -144,7 +140,6 @@ public class ImageUtil {
             }
             // 把压缩后的数据baos存放到ByteArrayInputStream中
             byte[] bytes = baos.toByteArray();
-            Log.e(ImageUtilTAG, "after compress:" + bytes.length / 1024);
             return bytes;
         } catch (Exception e) {
             throw e;
@@ -203,7 +198,6 @@ public class ImageUtil {
 
                             @Override
                             public void onScanCompleted(String path, Uri uri) {
-                                Log.e("", "onScanCompleted path=" + path);
                             }
                         });
                     }
@@ -217,7 +211,7 @@ public class ImageUtil {
          * isCut:是否需要裁剪
          * 无论哪种方案都需要压缩图片(如果需要裁剪则不壓縮图片尺寸，以免影响分辨率)
          */
-        public static void actionByIndex(Activity activity,int type, int index) {
+        public static void actionByIndex(Activity activity, int type, int index) {
             CutFilePath = null;
             boolean sdCardExist = Environment.getExternalStorageState()
                     .equals(Environment.MEDIA_MOUNTED); //判断sd卡是否存在
@@ -228,8 +222,8 @@ public class ImageUtil {
             Intent intent = new Intent(activity, PhotoSelectorActivity.class);
             intent.putExtra(PhotoSelectorActivity.KEY_MAX, PhotoSelectorActivity.SINGLE_IMAGE);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            intent.putExtra(PhotoSelectorActivity.pic_type,type);
-            intent.putExtra(PhotoSelectorActivity.pic_index,index);
+            intent.putExtra(PhotoSelectorActivity.pic_type, type);
+            intent.putExtra(PhotoSelectorActivity.pic_index, index);
             activity.startActivityForResult(intent, Gallery);
         }
 
@@ -273,12 +267,10 @@ public class ImageUtil {
         }
 
         private static void cut(Activity activity, String path) {
-            Log.e("", "cut orgpath= " + path);
             if (null == path || "".equals(path)) return;
 
             File finalFile = getFile(activity, imagefinalName, true);
             CutFilePath = finalFile.getAbsolutePath();
-            Log.e("", "cut complete start CutFilePath=" + CutFilePath);
 
             Intent intent = new Intent();
             intent.setAction("com.android.camera.action.CROP");
@@ -321,7 +313,6 @@ public class ImageUtil {
                         compressAndCutAndSave(activity, listner, list);
                     }
                 } else if (requestCode == Cut) {
-                    Log.e("", "cut complete CutFilePath = " + CutFilePath);
                     List<String> list = new ArrayList<String>();
                     list.add(CutFilePath);
                     listner.onImageGetListener(list);
@@ -351,7 +342,6 @@ public class ImageUtil {
                     List<String> list = new ArrayList<String>();
                     for (int i = 0; i < size; i++) {
                         String path = paths.get(i);
-                        Log.e("", "compressAndCutAndSave filePath= " + path);
                         File finalFile = getFile(activity, i + imagefinalName, true);
                         try {
                             byte[] images = compressImage(path);

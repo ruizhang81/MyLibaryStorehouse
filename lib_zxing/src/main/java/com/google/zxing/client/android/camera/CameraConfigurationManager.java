@@ -21,7 +21,6 @@ import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.hardware.Camera;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -81,15 +80,12 @@ final class CameraConfigurationManager {
                     throw new IllegalArgumentException("Bad rotation: " + displayRotation);
                 }
         }
-        Log.i(TAG, "Display at: " + cwRotationFromNaturalToDisplay);
 
         int cwRotationFromNaturalToCamera = camera.getOrientation();
-        Log.i(TAG, "Camera at: " + cwRotationFromNaturalToCamera);
 
         // Still not 100% sure about this. But acts like we need to flip this:
         if (camera.getFacing() == CameraFacing.FRONT) {
             cwRotationFromNaturalToCamera = (360 - cwRotationFromNaturalToCamera) % 360;
-            Log.i(TAG, "Front camera overriden to: " + cwRotationFromNaturalToCamera);
         }
 
     /*
@@ -108,23 +104,17 @@ final class CameraConfigurationManager {
 
         cwRotationFromDisplayToCamera =
                 (360 + cwRotationFromNaturalToCamera - cwRotationFromNaturalToDisplay) % 360;
-        Log.i(TAG, "Final display orientation: " + cwRotationFromDisplayToCamera);
         if (camera.getFacing() == CameraFacing.FRONT) {
-            Log.i(TAG, "Compensating rotation for front camera");
             cwNeededRotation = (360 - cwRotationFromDisplayToCamera) % 360;
         } else {
             cwNeededRotation = cwRotationFromDisplayToCamera;
         }
-        Log.i(TAG, "Clockwise rotation from display to camera: " + cwNeededRotation);
 
         Point theScreenResolution = new Point();
         display.getSize(theScreenResolution);
         screenResolution = theScreenResolution;
-        Log.i(TAG, "Screen resolution in current orientation: " + screenResolution);
         cameraResolution = CameraConfigurationUtils.findBestPreviewSizeValue(parameters, screenResolution);
-        Log.i(TAG, "Camera resolution: " + cameraResolution);
         bestPreviewSize = CameraConfigurationUtils.findBestPreviewSizeValue(parameters, screenResolution);
-        Log.i(TAG, "Best available preview size: " + bestPreviewSize);
 
         boolean isScreenPortrait = screenResolution.x < screenResolution.y;
         boolean isPreviewSizePortrait = bestPreviewSize.x < bestPreviewSize.y;
@@ -134,7 +124,6 @@ final class CameraConfigurationManager {
         } else {
             previewSizeOnScreen = new Point(bestPreviewSize.y, bestPreviewSize.x);
         }
-        Log.i(TAG, "Preview size on screen: " + previewSizeOnScreen);
     }
 
     void setDesiredCameraParameters(OpenCamera camera, boolean safeMode) {
@@ -143,14 +132,11 @@ final class CameraConfigurationManager {
         Camera.Parameters parameters = theCamera.getParameters();
 
         if (parameters == null) {
-            Log.w(TAG, "Device error: no camera parameters are available. Proceeding without configuration.");
             return;
         }
 
-        Log.i(TAG, "Initial camera parameters: " + parameters.flatten());
 
         if (safeMode) {
-            Log.w(TAG, "In camera config safe mode -- most settings will not be honored");
         }
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -189,8 +175,6 @@ final class CameraConfigurationManager {
         Camera.Parameters afterParameters = theCamera.getParameters();
         Camera.Size afterSize = afterParameters.getPreviewSize();
         if (afterSize != null && (bestPreviewSize.x != afterSize.width || bestPreviewSize.y != afterSize.height)) {
-            Log.w(TAG, "Camera said it supported preview size " + bestPreviewSize.x + 'x' + bestPreviewSize.y +
-                    ", but after setting it, preview size is " + afterSize.width + 'x' + afterSize.height);
             bestPreviewSize.x = afterSize.width;
             bestPreviewSize.y = afterSize.height;
         }

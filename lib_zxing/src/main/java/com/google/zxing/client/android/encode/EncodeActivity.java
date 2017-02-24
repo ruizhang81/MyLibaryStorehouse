@@ -24,7 +24,6 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -125,13 +124,11 @@ public final class EncodeActivity extends Activity {
     private void share() {
         QRCodeEncoder encoder = qrCodeEncoder;
         if (encoder == null) { // Odd
-            Log.w(TAG, "No existing barcode to send?");
             return;
         }
 
         String contents = encoder.getContents();
         if (contents == null) {
-            Log.w(TAG, "No existing barcode to send?");
             return;
         }
 
@@ -139,7 +136,6 @@ public final class EncodeActivity extends Activity {
         try {
             bitmap = encoder.encodeAsBitmap();
         } catch (WriterException we) {
-            Log.w(TAG, we);
             return;
         }
         if (bitmap == null) {
@@ -149,13 +145,11 @@ public final class EncodeActivity extends Activity {
         File bsRoot = new File(Environment.getExternalStorageDirectory(), "BarcodeScanner");
         File barcodesRoot = new File(bsRoot, "Barcodes");
         if (!barcodesRoot.exists() && !barcodesRoot.mkdirs()) {
-            Log.w(TAG, "Couldn't make dir " + barcodesRoot);
             showErrorMessage(R.string.msg_unmount_usb);
             return;
         }
         File barcodeFile = new File(barcodesRoot, makeBarcodeFileName(contents) + ".png");
         if (!barcodeFile.delete()) {
-            Log.w(TAG, "Could not delete " + barcodeFile);
             // continue anyway
         }
         FileOutputStream fos = null;
@@ -163,7 +157,6 @@ public final class EncodeActivity extends Activity {
             fos = new FileOutputStream(barcodeFile);
             bitmap.compress(Bitmap.CompressFormat.PNG, 0, fos);
         } catch (FileNotFoundException fnfe) {
-            Log.w(TAG, "Couldn't access file " + barcodeFile + " due to " + fnfe);
             showErrorMessage(R.string.msg_unmount_usb);
             return;
         } finally {
@@ -208,7 +201,6 @@ public final class EncodeActivity extends Activity {
             qrCodeEncoder = new QRCodeEncoder(this, intent, smallerDimension, useVCard);
             Bitmap bitmap = qrCodeEncoder.encodeAsBitmap();
             if (bitmap == null) {
-                Log.w(TAG, "Could not encode barcode");
                 showErrorMessage(R.string.msg_encode_contents_failed);
                 qrCodeEncoder = null;
                 return;
@@ -226,7 +218,6 @@ public final class EncodeActivity extends Activity {
                 setTitle("");
             }
         } catch (WriterException e) {
-            Log.w(TAG, "Could not encode barcode", e);
             showErrorMessage(R.string.msg_encode_contents_failed);
             qrCodeEncoder = null;
         }

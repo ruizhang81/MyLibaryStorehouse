@@ -19,7 +19,6 @@ package com.google.zxing.client.android.clipboard;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.util.Log;
 
 public final class ClipboardInterface {
 
@@ -40,7 +39,6 @@ public final class ClipboardInterface {
                 getManager(context).setPrimaryClip(ClipData.newPlainText(null, text));
             } catch (NullPointerException | IllegalStateException e) {
                 // Have seen this in the wild, bizarrely
-                Log.w(TAG, "Clipboard bug", e);
             }
         }
     }

@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -135,7 +134,6 @@ public final class HistoryActivity extends ListActivity {
                 try {
                     startActivity(intent);
                 } catch (ActivityNotFoundException anfe) {
-                    Log.w(TAG, anfe.toString());
                 }
             }
 

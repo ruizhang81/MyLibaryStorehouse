@@ -42,14 +42,15 @@ public class BaseSwipeRefreshLayout extends ViewGroup {
     private static final int ANIMATE_TO_TRIGGER_DURATION = 200;
     private static final int ANIMATE_TO_START_DURATION = 200;
     private static final int DEFAULT_CIRCLE_TARGET = 64;
-
+    private static final int[] LAYOUT_ATTRS = new int[]{android.R.attr.enabled};
+    private final DecelerateInterpolator mDecelerateInterpolator;
+    protected int mFrom;
+    protected int mOriginalOffsetTop;
     // SuperSwipeRefreshLayout内的目标View，比如RecyclerView,ListView,ScrollView,GridView
     // etc.
     private View mTarget;
-
     private OnPullRefreshListener mListener;// 下拉刷新listener
     private OnPushLoadMoreListener mOnPushLoadMoreListener;// 上拉加载更多
-
     private boolean mRefreshing = false;
     private boolean mLoadMore = false;
     private int mTouchSlop;
@@ -57,42 +58,45 @@ public class BaseSwipeRefreshLayout extends ViewGroup {
     private int mMediumAnimationDuration;
     private int mCurrentTargetOffsetTop;
     private boolean mOriginalOffsetCalculated = false;
-
     private float mInitialMotionY;
     private boolean mIsBeingDragged;
     private int mActivePointerId = INVALID_POINTER;
-
     private boolean mReturningToStart;
-    private final DecelerateInterpolator mDecelerateInterpolator;
-    private static final int[] LAYOUT_ATTRS = new int[]{android.R.attr.enabled};
-
     private HeadViewContainer mHeadViewContainer;
+    private final Animation mAnimateToStartPosition = new Animation() {
+        @Override
+        public void applyTransformation(float interpolatedTime, Transformation t) {
+            moveToStart(interpolatedTime);
+        }
+    };
     private RelativeLayout mFooterViewContainer;
     private int mHeaderViewIndex = -1;
     private int mFooterViewIndex = -1;
-
-    protected int mFrom;
-
-    protected int mOriginalOffsetTop;
-
     // 最后停顿时的偏移量px，与DEFAULT_CIRCLE_TARGET正比
     private float mSpinnerFinalOffset;
+    private final Animation mAnimateToCorrectPosition = new Animation() {
+        @Override
+        public void applyTransformation(float interpolatedTime, Transformation t) {
+            int targetTop = 0;
+            int endTarget = (int) (mSpinnerFinalOffset - Math
+                    .abs(mOriginalOffsetTop));
+            targetTop = (mFrom + (int) ((endTarget - mFrom) * interpolatedTime));
+            int offset = targetTop - mHeadViewContainer.getTop();
+            setTargetOffsetTopAndBottom(offset, false /* requires update */);
+        }
 
+        @Override
+        public void setAnimationListener(AnimationListener listener) {
+            super.setAnimationListener(listener);
+        }
+    };
     private boolean mNotify;
-
     private int mHeaderViewWidth;// headerView的宽度
-
     private int mFooterViewWidth;
-
     private int mHeaderViewHeight;
-
     private int mFooterViewHeight;
-
-
     private boolean targetScrollWithLayout = true;
-
     private int pushDistance = 0;
-
     private boolean mNeedLoadMore = true;//需要加载更多
     /**
      * 下拉时，超过距离之后，弹回来的动画监听器
@@ -123,50 +127,6 @@ public class BaseSwipeRefreshLayout extends ViewGroup {
             updateListenerCallBack();
         }
     };
-
-    /**
-     * 更新回调 当回弹时不让他回调
-     */
-    private void updateListenerCallBack() {
-        int distance = mCurrentTargetOffsetTop + mHeadViewContainer.getHeight();
-        if (mListener != null) {
-            if (mActivePointerId != INVALID_POINTER) {
-                mListener.onPullDistance(distance);
-            }
-        }
-    }
-
-    /**
-     * 添加头布局
-     *
-     * @param child
-     */
-    public void setHeaderView(View child) {
-        if (child == null) {
-            return;
-        }
-        if (mHeadViewContainer == null) {
-            return;
-        }
-        mHeadViewContainer.removeAllViews();
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                mHeaderViewWidth, mHeaderViewHeight);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        mHeadViewContainer.addView(child, layoutParams);
-    }
-
-    public void setFooterView(View child) {
-        if (child == null) {
-            return;
-        }
-        if (mFooterViewContainer == null) {
-            return;
-        }
-        mFooterViewContainer.removeAllViews();
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                mFooterViewWidth, mFooterViewHeight);
-        mFooterViewContainer.addView(child, layoutParams);
-    }
 
     public BaseSwipeRefreshLayout(Context context) {
         this(context, null);
@@ -215,6 +175,50 @@ public class BaseSwipeRefreshLayout extends ViewGroup {
     }
 
     /**
+     * 更新回调 当回弹时不让他回调
+     */
+    private void updateListenerCallBack() {
+        int distance = mCurrentTargetOffsetTop + mHeadViewContainer.getHeight();
+        if (mListener != null) {
+            if (mActivePointerId != INVALID_POINTER) {
+                mListener.onPullDistance(distance);
+            }
+        }
+    }
+
+    /**
+     * 添加头布局
+     *
+     * @param child
+     */
+    public void setHeaderView(View child) {
+        if (child == null) {
+            return;
+        }
+        if (mHeadViewContainer == null) {
+            return;
+        }
+        mHeadViewContainer.removeAllViews();
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                mHeaderViewWidth, mHeaderViewHeight);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        mHeadViewContainer.addView(child, layoutParams);
+    }
+
+    public void setFooterView(View child) {
+        if (child == null) {
+            return;
+        }
+        if (mFooterViewContainer == null) {
+            return;
+        }
+        mFooterViewContainer.removeAllViews();
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                mFooterViewWidth, mFooterViewHeight);
+        mFooterViewContainer.addView(child, layoutParams);
+    }
+
+    /**
      * 孩子节点绘制的顺序
      *
      * @param childCount
@@ -254,7 +258,6 @@ public class BaseSwipeRefreshLayout extends ViewGroup {
     public void setOnPullRefreshListener(OnPullRefreshListener listener) {
         mListener = listener;
     }
-
 
     /**
      * 设置上拉加载更多的接口
@@ -297,7 +300,6 @@ public class BaseSwipeRefreshLayout extends ViewGroup {
             setRefreshing(refreshing, false /* notify */);
         }
     }
-
 
     private void setRefreshing(boolean refreshing, final boolean notify) {
         if (mRefreshing != refreshing) {
@@ -910,36 +912,11 @@ public class BaseSwipeRefreshLayout extends ViewGroup {
                 (width / 2 + footViewWidth / 2), height + footViewHeight);
     }
 
-    private final Animation mAnimateToCorrectPosition = new Animation() {
-        @Override
-        public void applyTransformation(float interpolatedTime, Transformation t) {
-            int targetTop = 0;
-            int endTarget = (int) (mSpinnerFinalOffset - Math
-                    .abs(mOriginalOffsetTop));
-            targetTop = (mFrom + (int) ((endTarget - mFrom) * interpolatedTime));
-            int offset = targetTop - mHeadViewContainer.getTop();
-            setTargetOffsetTopAndBottom(offset, false /* requires update */);
-        }
-
-        @Override
-        public void setAnimationListener(AnimationListener listener) {
-            super.setAnimationListener(listener);
-        }
-    };
-
     private void moveToStart(float interpolatedTime) {
         int targetTop = (mFrom + (int) ((mOriginalOffsetTop - mFrom) * interpolatedTime));
         int offset = targetTop - mHeadViewContainer.getTop();
         setTargetOffsetTopAndBottom(offset, false /* requires update */);
     }
-
-    private final Animation mAnimateToStartPosition = new Animation() {
-        @Override
-        public void applyTransformation(float interpolatedTime, Transformation t) {
-            moveToStart(interpolatedTime);
-        }
-    };
-
 
     private void setTargetOffsetTopAndBottom(int offset, boolean requiresUpdate) {
         mHeadViewContainer.bringToFront();
@@ -980,6 +957,41 @@ public class BaseSwipeRefreshLayout extends ViewGroup {
     }
 
     /**
+     * 设置子View是否跟谁手指的滑动而滑动
+     *
+     * @param targetScrollWithLayout
+     */
+    public void setTargetScrollWithLayout(boolean targetScrollWithLayout) {
+        this.targetScrollWithLayout = targetScrollWithLayout;
+    }
+
+    public void setNeedLoadMore(boolean needLoadMore) {
+        mNeedLoadMore = needLoadMore;
+    }
+
+    /**
+     * 下拉刷新回调
+     */
+    public interface OnPullRefreshListener {
+        void onRefresh();
+
+        void onPullDistance(int distance);
+
+        void onPullEnable(boolean enable);
+    }
+
+    /**
+     * 上拉加载更多
+     */
+    public interface OnPushLoadMoreListener {
+        void onLoadMore();
+
+        void onPushDistance(int distance);
+
+        void onPushEnable(boolean enable);
+    }
+
+    /**
      * @Description 下拉刷新布局头部的容器
      */
     private class HeadViewContainer extends RelativeLayout {
@@ -1009,43 +1021,6 @@ public class BaseSwipeRefreshLayout extends ViewGroup {
                 mListener.onAnimationEnd(getAnimation());
             }
         }
-    }
-
-    /**
-     * 设置子View是否跟谁手指的滑动而滑动
-     *
-     * @param targetScrollWithLayout
-     */
-    public void setTargetScrollWithLayout(boolean targetScrollWithLayout) {
-        this.targetScrollWithLayout = targetScrollWithLayout;
-    }
-
-    /**
-     * 下拉刷新回调
-     */
-    public interface OnPullRefreshListener {
-        void onRefresh();
-
-        void onPullDistance(int distance);
-
-        void onPullEnable(boolean enable);
-    }
-
-    /**
-     * 上拉加载更多
-     */
-    public interface OnPushLoadMoreListener {
-        void onLoadMore();
-
-        void onPushDistance(int distance);
-
-        void onPushEnable(boolean enable);
-    }
-
-
-
-    public void setNeedLoadMore(boolean needLoadMore) {
-        mNeedLoadMore = needLoadMore;
     }
 
 

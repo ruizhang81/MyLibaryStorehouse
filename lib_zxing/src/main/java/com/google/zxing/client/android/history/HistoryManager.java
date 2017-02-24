@@ -26,7 +26,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
@@ -81,7 +80,6 @@ public final class HistoryManager {
         File bsRoot = new File(Environment.getExternalStorageDirectory(), "BarcodeScanner");
         File historyRoot = new File(bsRoot, "History");
         if (!historyRoot.exists() && !historyRoot.mkdirs()) {
-            Log.w(TAG, "Couldn't make dir " + historyRoot);
             return null;
         }
         File historyFile = new File(historyRoot, "history-" + System.currentTimeMillis() + ".csv");
@@ -91,7 +89,6 @@ public final class HistoryManager {
             out.write(history);
             return Uri.parse("file://" + historyFile.getAbsolutePath());
         } catch (IOException ioe) {
-            Log.w(TAG, "Couldn't access file " + historyFile + " due to " + ioe);
             return null;
         } finally {
             if (out != null) {
@@ -289,13 +286,11 @@ public final class HistoryManager {
             cursor.move(MAX_ITEMS);
             while (cursor.moveToNext()) {
                 String id = cursor.getString(0);
-                Log.i(TAG, "Deleting scan history ID " + id);
                 db.delete(DBHelper.TABLE_NAME, DBHelper.ID_COL + '=' + id, null);
             }
         } catch (SQLiteException sqle) {
             // We're seeing an error here when called in CaptureActivity.onCreate() in rare cases
             // and don't understand it. First theory is that it's transient so can be safely ignored.
-            Log.w(TAG, sqle);
             // continue
         } finally {
             close(cursor, db);

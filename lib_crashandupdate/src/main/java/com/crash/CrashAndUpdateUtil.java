@@ -13,7 +13,7 @@ import com.tencent.bugly.beta.Beta;
 public class CrashAndUpdateUtil {
 
 
-    public static void init(Context context,String APPID, boolean isDebug) {
+    public static void init(Context context, String APPID, boolean isDebug) {
         Bugly.init(context, APPID, isDebug);
         checkUpdate(false);
     }

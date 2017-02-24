@@ -25,7 +25,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
-import android.util.Log;
 
 import com.google.zxing.Result;
 import com.google.zxing.client.android.Contents;
@@ -435,7 +434,6 @@ public abstract class ResultHandler {
         try {
             launchIntent(intent);
         } catch (ActivityNotFoundException ignored) {
-            Log.w(TAG, "Nothing available to handle " + intent);
         }
     }
 
@@ -454,7 +452,6 @@ public abstract class ResultHandler {
     final void rawLaunchIntent(Intent intent) {
         if (intent != null) {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-            Log.d(TAG, "Launching intent: " + intent + " with extras: " + intent.getExtras());
             activity.startActivity(intent);
         }
     }

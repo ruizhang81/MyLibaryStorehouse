@@ -21,7 +21,6 @@ import android.app.AlertDialog;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Handler;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -64,6 +63,10 @@ public final class CaptureHelp {
     private SurfaceHolder.Callback callback;
 
 
+    public CaptureHelp(OnSacnCallback onSacnCallback) {
+        this.mOnSacnCallback = onSacnCallback;
+    }
+
     ViewfinderView getmViewfinderView() {
         return mViewfinderView;
     }
@@ -74,11 +77,6 @@ public final class CaptureHelp {
 
     CameraManager getCameraManager() {
         return cameraManager;
-    }
-
-
-    public CaptureHelp(OnSacnCallback onSacnCallback){
-        this.mOnSacnCallback = onSacnCallback;
     }
 
     public void onCreate(Activity activity) {
@@ -93,7 +91,7 @@ public final class CaptureHelp {
 
     }
 
-    public void onResume(final Activity activity,ViewfinderView viewfinderView,SurfaceView surfaceView) {
+    public void onResume(final Activity activity, ViewfinderView viewfinderView, SurfaceView surfaceView) {
         mViewfinderView = viewfinderView;
 
         cameraManager = new CameraManager(activity.getApplication());
@@ -119,10 +117,10 @@ public final class CaptureHelp {
         if (hasSurface) {
             // The activity was paused but not stopped, so the surface still exists. Therefore
             // surfaceCreated() won't be called, so init the camera here.
-            initCamera(activity,surfaceHolder);
+            initCamera(activity, surfaceHolder);
         } else {
             // Install the callback and wait for surfaceCreated() to init the camera.
-             callback =  new SurfaceHolder.Callback() {
+            callback = new SurfaceHolder.Callback() {
                 @Override
                 public void surfaceCreated(SurfaceHolder holder) {
                     if (holder == null) {
@@ -130,7 +128,7 @@ public final class CaptureHelp {
                     }
                     if (!hasSurface) {
                         hasSurface = true;
-                        initCamera(activity,holder);
+                        initCamera(activity, holder);
                     }
                 }
 
@@ -159,7 +157,7 @@ public final class CaptureHelp {
         beepManager.close();
         cameraManager.closeDriver();
         //historyManager = null; // Keep for onActivityResult
-        if (!hasSurface && callback!=null) {
+        if (!hasSurface && callback != null) {
             SurfaceHolder surfaceHolder = surfaceView.getHolder();
             surfaceHolder.removeCallback(callback);
         }
@@ -169,36 +167,28 @@ public final class CaptureHelp {
         inactivityTimer.shutdown();
     }
 
-
-    public interface OnSacnCallback{
-        void onCallback(String result);
-    }
-    public void handleDecode(Result rawResult, Bitmap barcode, float scaleFactor,Activity activity) {
+    public void handleDecode(Result rawResult, Bitmap barcode, float scaleFactor, Activity activity) {
         mOnSacnCallback.onCallback(rawResult.getText());
     }
 
-
-    private void initCamera(Activity activity,SurfaceHolder surfaceHolder) {
+    private void initCamera(Activity activity, SurfaceHolder surfaceHolder) {
         if (surfaceHolder == null) {
             throw new IllegalStateException("No SurfaceHolder provided");
         }
         if (cameraManager.isOpen()) {
-            Log.w(TAG, "initCamera() while already open -- late SurfaceView callback?");
             return;
         }
         try {
             cameraManager.openDriver(surfaceHolder);
             // Creating the handler starts the preview, which can also throw a RuntimeException.
             if (handler == null) {
-                handler = new CaptureHelpHandler(activity,this, decodeFormats, decodeHints, characterSet, cameraManager);
+                handler = new CaptureHelpHandler(activity, this, decodeFormats, decodeHints, characterSet, cameraManager);
             }
         } catch (IOException ioe) {
-            Log.w(TAG, ioe);
             displayFrameworkBugMessageAndExit(activity);
         } catch (RuntimeException e) {
             // Barcode Scanner has seen crashes in the wild of this variety:
             // java.?lang.?RuntimeException: Fail to connect to camera service
-            Log.w(TAG, "Unexpected error initializing camera", e);
             displayFrameworkBugMessageAndExit(activity);
         }
     }
@@ -212,9 +202,12 @@ public final class CaptureHelp {
         builder.show();
     }
 
-
-
     public void drawViewfinder() {
         mViewfinderView.drawViewfinder();
+    }
+
+
+    public interface OnSacnCallback {
+        void onCallback(String result);
     }
 }

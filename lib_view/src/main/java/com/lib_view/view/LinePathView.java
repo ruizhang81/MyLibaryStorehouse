@@ -21,16 +21,6 @@ import java.io.OutputStream;
 
 public class LinePathView extends View {
 
-    private Context mContext;
-
-    /**
-     * 笔画X坐标起点
-     */
-    private float mX;
-    /**
-     * 笔画Y坐标起点
-     */
-    private float mY;
     /**
      * 手写画笔
      */
@@ -39,6 +29,15 @@ public class LinePathView extends View {
      * 路径
      */
     private final Path mPath = new Path();
+    private Context mContext;
+    /**
+     * 笔画X坐标起点
+     */
+    private float mX;
+    /**
+     * 笔画Y坐标起点
+     */
+    private float mY;
     /**
      * 签名画笔
      */

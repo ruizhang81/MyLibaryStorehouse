@@ -20,7 +20,7 @@ public class RetrofitFactory {
                                        HashMap<String, String> baseParam) {
         if (retrofit == null || !BaseUrl.equals(retrofit.baseUrl().host())) {
             synchronized (RetrofitFactory.class) {
-                if (retrofit == null || !BaseUrl.equals(retrofit.baseUrl().host()) ) {
+                if (retrofit == null || !BaseUrl.equals(retrofit.baseUrl().host())) {
                     OkHttpClient client = OkHttp.createOkhttpClient(context, baseHeader, baseParam);
 
                     retrofit = new Retrofit
@@ -35,7 +35,6 @@ public class RetrofitFactory {
         }
         return retrofit;
     }
-
 
 
 }

@@ -130,12 +130,10 @@ public class BrListView extends LinearLayout implements IListView {
     }
 
 
-
     @Override
     public void setSelection(int position) {
         ((LinearLayoutManager) layoutManager).scrollToPositionWithOffset(position, 0);
     }
-
 
 
     public interface OnStartListener {

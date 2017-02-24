@@ -28,7 +28,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Browser;
-import android.util.Log;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
@@ -53,14 +52,14 @@ public final class CaptureHelpHandler extends Handler {
     private final CameraManager cameraManager;
     private State state;
 
-    CaptureHelpHandler(Activity activity,CaptureHelp help,
+    CaptureHelpHandler(Activity activity, CaptureHelp help,
                        Collection<BarcodeFormat> decodeFormats,
                        Map<DecodeHintType, ?> baseHints,
                        String characterSet,
                        CameraManager cameraManager) {
         this.activity = activity;
         this.help = help;
-        decodeThread = new DecodeHelpThread(activity,help, decodeFormats, baseHints, characterSet,
+        decodeThread = new DecodeHelpThread(activity, help, decodeFormats, baseHints, characterSet,
                 new ViewfinderResultPointCallback(help.getmViewfinderView()));
         decodeThread.start();
         state = State.SUCCESS;
@@ -91,7 +90,7 @@ public final class CaptureHelpHandler extends Handler {
                 }
                 scaleFactor = bundle.getFloat(DecodeThread.BARCODE_SCALED_FACTOR);
             }
-            help.handleDecode((Result) message.obj, barcode, scaleFactor,activity);
+            help.handleDecode((Result) message.obj, barcode, scaleFactor, activity);
         } else if (message.what == R.id.decode_failed) {// We're decoding as fast as possible, so when one decode fails, start another.
             state = State.PREVIEW;
             cameraManager.requestPreviewFrame(decodeThread.getHandler(), R.id.decode);
@@ -124,7 +123,6 @@ public final class CaptureHelpHandler extends Handler {
             try {
                 activity.startActivity(intent);
             } catch (ActivityNotFoundException ignored) {
-                Log.w(TAG, "Can't find anything to handle VIEW of URI " + url);
             }
 
         }

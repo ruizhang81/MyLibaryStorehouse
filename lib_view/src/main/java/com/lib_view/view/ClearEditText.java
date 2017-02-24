@@ -14,7 +14,6 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 
-
 import com.lib_view.R;
 
 import java.util.regex.Matcher;
@@ -230,7 +229,7 @@ public class ClearEditText extends EditText implements
 
     private boolean lengthIsIllegal(int realLength, int length) {
         if (realLength > length) {
-            MyToast.showToast(getContext(),"最大长度为" + length + "个字符");
+            MyToast.showToast(getContext(), "最大长度为" + length + "个字符");
             setText(preStrSB.toString());
             setSelection(preStrSB.toString().length());
             return true;

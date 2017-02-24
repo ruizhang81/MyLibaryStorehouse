@@ -12,7 +12,6 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-
 import com.lib_view.R;
 
 import java.util.List;
@@ -64,7 +63,7 @@ public class TabListLayout extends LinearLayout {
         this.mListener = listener;
     }
 
-    public void addTab(List<String> nameList,int screenW) {
+    public void addTab(List<String> nameList, int screenW) {
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         params.weight = 1.0f;
 

@@ -2,11 +2,9 @@ package com.lib_http;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -14,16 +12,12 @@ import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
-import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
-import okio.Buffer;
 
 /**
  * Created by zhangrui on 17/1/2.
@@ -59,7 +53,7 @@ public class OkHttp {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                Log.e("http", "Message:" + message);
+
             }
         });
         loggingInterceptor.setLevel(level);
@@ -128,62 +122,62 @@ public class OkHttp {
 
 
                 /**
-                Request oldRequest = chain.request();
+                 Request oldRequest = chain.request();
 
-                //生成新的请求体
-                HttpUrl.Builder newBuilder = oldRequest.url().newBuilder()
-                        .scheme(oldRequest.url().scheme())
-                        .host(oldRequest.url().host());
+                 //生成新的请求体
+                 HttpUrl.Builder newBuilder = oldRequest.url().newBuilder()
+                 .scheme(oldRequest.url().scheme())
+                 .host(oldRequest.url().host());
 
-                //初始化加密串
-                StringBuilder sb = new StringBuilder();
-                boolean notFirst = false;
+                 //初始化加密串
+                 StringBuilder sb = new StringBuilder();
+                 boolean notFirst = false;
 
-                // 向新的请求体里添加公共参数，然后生成公共参数加密串
-                if (baseParam != null && baseParam.keySet() != null) {
-                    Iterator<String> iter = baseParam.keySet().iterator();
-                    while (iter.hasNext()) {
-                        String key = iter.next();
-                        String value = baseParam.get(key);
-                        newBuilder.addQueryParameter(key, value);
-                        if (notFirst) {
-                            sb.append("&");
-                        }
-                        sb.append(key);
-                        sb.append("=");
-                        sb.append(value);
-                        notFirst = true;
-                        Log.e("xxx"," base add param key= "+key+" value="+value);
-                    }
-                }
+                 // 向新的请求体里添加公共参数，然后生成公共参数加密串
+                 if (baseParam != null && baseParam.keySet() != null) {
+                 Iterator<String> iter = baseParam.keySet().iterator();
+                 while (iter.hasNext()) {
+                 String key = iter.next();
+                 String value = baseParam.get(key);
+                 newBuilder.addQueryParameter(key, value);
+                 if (notFirst) {
+                 sb.append("&");
+                 }
+                 sb.append(key);
+                 sb.append("=");
+                 sb.append(value);
+                 notFirst = true;
+                 Log.e("xxx"," base add param key= "+key+" value="+value);
+                 }
+                 }
 
-                //生成动态参数加密串
-                if (oldRequest.body() instanceof FormBody) {
-                    FormBody oidFormBody = (FormBody) oldRequest.body();
-                    for (int i = 0; i < oidFormBody.size(); i++) {
-                        if (notFirst) {
-                            sb.append("&");
-                        }
-                        String key = oidFormBody.encodedName(i);
-                        String value = oidFormBody.encodedValue(i);
-                        sb.append(key);
-                        sb.append("=");
-                        sb.append(value);
-                        Log.e("xxx","new add param key= "+key+" value="+value);
-                        notFirst = true;
-                    }
-                }else{
-                }
-                encryption(newBuilder, baseParam, sb.toString());
+                 //生成动态参数加密串
+                 if (oldRequest.body() instanceof FormBody) {
+                 FormBody oidFormBody = (FormBody) oldRequest.body();
+                 for (int i = 0; i < oidFormBody.size(); i++) {
+                 if (notFirst) {
+                 sb.append("&");
+                 }
+                 String key = oidFormBody.encodedName(i);
+                 String value = oidFormBody.encodedValue(i);
+                 sb.append(key);
+                 sb.append("=");
+                 sb.append(value);
+                 Log.e("xxx","new add param key= "+key+" value="+value);
+                 notFirst = true;
+                 }
+                 }else{
+                 }
+                 encryption(newBuilder, baseParam, sb.toString());
 
 
-                // 新的请求
-                Request newRequest = oldRequest.newBuilder()
-                        .method(oldRequest.method(), oldRequest.body())
-                        .url(newBuilder.build())
-                        .build();
+                 // 新的请求
+                 Request newRequest = oldRequest.newBuilder()
+                 .method(oldRequest.method(), oldRequest.body())
+                 .url(newBuilder.build())
+                 .build();
 
-                return chain.proceed(newRequest);
+                 return chain.proceed(newRequest);
                  **/
             }
         };

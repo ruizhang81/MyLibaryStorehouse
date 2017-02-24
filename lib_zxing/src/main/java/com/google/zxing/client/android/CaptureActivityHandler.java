@@ -28,7 +28,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Browser;
-import android.util.Log;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
@@ -122,7 +121,6 @@ public final class CaptureActivityHandler extends Handler {
             try {
                 activity.startActivity(intent);
             } catch (ActivityNotFoundException ignored) {
-                Log.w(TAG, "Can't find anything to handle VIEW of URI " + url);
             }
 
         }

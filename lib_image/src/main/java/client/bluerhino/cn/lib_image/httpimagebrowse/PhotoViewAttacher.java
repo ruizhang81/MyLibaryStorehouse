@@ -8,7 +8,6 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,7 +29,6 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
     static final String LOG_TAG = "PhotoViewAttacher";
     // let debug flag be dynamic, but still Proguard can be used to remove from
     // release builds
-    static final boolean DEBUG = Log.isLoggable(LOG_TAG, Log.DEBUG);
     static final int EDGE_NONE = -1;
     static final int EDGE_LEFT = 0;
     static final int EDGE_RIGHT = 1;
@@ -159,7 +157,6 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
      * when the ImageView is no longer used. A good example is from
      * {@link View#onDetachedFromWindow()} or from
      * {@link android.app.Activity#onDestroy()}. This is automatically called if
-     * you are using {@link uk.co.senab.photoview.PhotoView}.
      */
     @SuppressLint("NewApi")
     // @SuppressWarnings("deprecation")
@@ -321,9 +318,6 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
     }
 
     public final void onDrag(float dx, float dy) {
-        if (DEBUG) {
-            Log.d(LOG_TAG, String.format("onDrag: dx: %.2f. dy: %.2f", dx, dy));
-        }
 
         ImageView imageView = getImageView();
 
@@ -354,10 +348,6 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
     @Override
     public final void onFling(float startX, float startY, float velocityX,
                               float velocityY) {
-        if (DEBUG) {
-            Log.d(LOG_TAG, "onFling. sX: " + startX + " sY: " + startY
-                    + " Vx: " + velocityX + " Vy: " + velocityY);
-        }
 
         ImageView imageView = getImageView();
         if (hasDrawable(imageView)) {
@@ -400,11 +390,6 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
     }
 
     public final void onScale(float scaleFactor, float focusX, float focusY) {
-        if (DEBUG) {
-            Log.d(LOG_TAG, String.format(
-                    "onScale: scale: %.2f. fX: %.2f. fY: %.2f", scaleFactor,
-                    focusX, focusY));
-        }
 
         if (hasDrawable(getImageView())
                 && (getScale() < mMaxScale || scaleFactor < 1f)) {
@@ -891,9 +876,6 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
         }
 
         public void cancelFling() {
-            if (DEBUG) {
-                Log.d(LOG_TAG, "Cancel Fling");
-            }
             mScroller.forceFinished(true);
         }
 
@@ -925,10 +907,6 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
             mCurrentX = startX;
             mCurrentY = startY;
 
-            if (DEBUG) {
-                Log.d(LOG_TAG, "fling. StartX:" + startX + " StartY:" + startY
-                        + " MaxX:" + maxX + " MaxY:" + maxY);
-            }
 
             // If we actually can move, fling the scroller
             if (startX != maxX || startY != maxY) {
@@ -945,11 +923,6 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
                 final int newX = mScroller.getCurrX();
                 final int newY = mScroller.getCurrY();
 
-                if (DEBUG) {
-                    Log.d(LOG_TAG, "fling run(). CurrentX:" + mCurrentX
-                            + " CurrentY:" + mCurrentY + " NewX:" + newX
-                            + " NewY:" + newY);
-                }
 
                 mSuppMatrix.postTranslate(mCurrentX - newX, mCurrentY - newY);
                 setImageViewMatrix(getDisplayMatrix());
