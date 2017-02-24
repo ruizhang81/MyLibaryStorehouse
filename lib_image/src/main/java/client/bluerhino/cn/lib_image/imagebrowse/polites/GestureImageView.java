@@ -71,8 +71,6 @@ public class GestureImageView extends ImageView {
             /** position = view��ˮƽ���� - ͼƬˮƽ���ȵ�һ�� */
             double halfImage = GestureImageView.this.getScaledWidth() / 2.0;
             double viewWidth = GestureImageView.this.getWidth();
-            System.out.println(x);
-            System.out.println(halfImage + "::" + (viewWidth - halfImage));
             if (x == halfImage || x == (viewWidth - halfImage)) {
                 GestureImageView.this.getParent().requestDisallowInterceptTouchEvent(false);
             } else {
