@@ -34,6 +34,7 @@ dependencies {
     embedded project(':lib_view')
     embedded project(':lib_zxing')
     embedded project(':lib_pay')
+    embedded project(':lib_util')
 }
 
 //需要自定义部分
@@ -51,7 +52,7 @@ def _email = 'ruizhang81@gmail.com'
 def _user = 'rui'
 def _apikey = '260e869279016b3621332bd85045e88f7f13949f'
 
-version "0.953"
+version "0.954"
 group = "com.mylibrary"
 
 
