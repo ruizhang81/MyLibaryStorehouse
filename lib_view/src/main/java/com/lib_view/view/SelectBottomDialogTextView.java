@@ -119,7 +119,11 @@ public class SelectBottomDialogTextView extends RelativeLayout {
         }
         selectIndex = list.indexOf(defaultValue);
         setHint(defaultValue);
-        setText("");
+        if(selectIndex!=-1){
+            setText(list.get(selectIndex));
+        }else{
+            setText("");
+        }
         parent = view;
         View popupWindow_view = inflater.inflate(R.layout.layout_bottom_dialog, null, false);
         ListView listView = (ListView) popupWindow_view.findViewById(R.id.listview);
