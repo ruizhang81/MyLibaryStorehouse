@@ -34,4 +34,6 @@
     <!-- 按下 字颜色 -->
     <color name="color_base_btn_press_text">#ffffff</color>
 
+    <!-- v_text_color -->
+    <color name="v_text_color">#e91e63</color>
 </resources>

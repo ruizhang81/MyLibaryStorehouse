@@ -30,7 +30,7 @@ public abstract class GetCodeEditText extends RelativeLayout {
         @Override
         public void onTick(long millisUntilFinished) {
             mBtnGetCode.setText(mCurrentCountDownTime + "秒");
-            mBtnGetCode.setTextColor(ContextCompat.getColor(getContext(), R.color.text_red));
+            mBtnGetCode.setTextColor(ContextCompat.getColor(getContext(), R.color.v_text_color));
             mCurrentCountDownTime--;
         }
 
