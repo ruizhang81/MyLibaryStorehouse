@@ -38,6 +38,7 @@ public abstract class GetCodeEditText extends RelativeLayout {
         public void onFinish() {
             mBtnGetCode.setText("获取验证码");
             mBtnGetCode.setEnabled(true);
+            mBtnGetCode.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
             mCurrentCountDownTime = GET_CODE_MAX_TIME;
         }
     };

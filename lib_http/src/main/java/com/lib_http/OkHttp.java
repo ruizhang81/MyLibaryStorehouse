@@ -2,6 +2,7 @@ package com.lib_http;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,7 +54,7 @@ public class OkHttp {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-
+                Log.e("http"," Interceptor= "+message);
             }
         });
         loggingInterceptor.setLevel(level);
@@ -110,6 +111,7 @@ public class OkHttp {
                         String key = iter.next();
                         String value = baseParam.get(key);
                         newBuilder.addQueryParameter(key, value);
+                        Log.e("http"," base add param key= "+key+" value="+value);
                     }
                 }
                 // 新的请求
