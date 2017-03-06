@@ -5,6 +5,10 @@
     <color name="black">#000000</color>
     <color name="transparent">@android:color/transparent</color>
 
+
+    <!-- 半透明 -->
+    <color name="half_transparent">#40000000</color>
+
     <!-- toast -->
     <color name="color_toast_bg">#e91e63</color>
     <color name="color_toast_text">#ffffff</color>
