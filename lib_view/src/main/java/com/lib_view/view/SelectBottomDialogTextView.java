@@ -80,9 +80,7 @@ public class SelectBottomDialogTextView extends RelativeLayout {
                     return;
                 }
                 if (!popupWindow.isShowing()) {
-                    Rect frame = new Rect();
-                    parent.getWindowVisibleDisplayFrame(frame);
-                    popupWindow.showAtLocation(parent, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, frame.top);
+                    popupWindow.showAtLocation(parent, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                     image.setSelected(true);
                     popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                         @Override

@@ -10,8 +10,8 @@
 
     <LinearLayout
         android:layout_width="200dp"
-        android:layout_height="200dp">
-
+        android:layout_height="200dp"
+        android:orientation="vertical">
 
         <SurfaceView
             android:id="@+id/preview_view"
