@@ -39,6 +39,7 @@ public class SelectBottomDialogTextView extends RelativeLayout {
     private TextView text;
     private ImageView image;
     private OnSelectCallback mCallback;
+    private RelativeLayout root;
 
     public SelectBottomDialogTextView(Context context) {
         super(context);
@@ -69,6 +70,7 @@ public class SelectBottomDialogTextView extends RelativeLayout {
         inflater = LayoutInflater.from(getContext());
         inflater.inflate(R.layout.layout_select_bottom_dialog_textview, this, true);
 
+        root = (RelativeLayout) findViewById(R.id.root);
         text = (TextView) findViewById(R.id.text);
         image = (ImageView) findViewById(R.id.image);
         image.setSelected(false);
@@ -101,6 +103,14 @@ public class SelectBottomDialogTextView extends RelativeLayout {
 
 
     }
+
+    @Override
+    public void setBackgroundResource(int resid) {
+        if(root!=null){
+            root.setBackgroundResource(resid);
+        }
+    }
+
 
     public int getSelectItem() {
         return selectIndex;
