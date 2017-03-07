@@ -12,19 +12,19 @@ import android.widget.EditText;
 
 public class InputMethodHelp {
 
-    public void show(EditText edittext,Context context){
+    public static void show(EditText edittext,Context context){
         edittext.requestFocus();
         edittext.setFocusable(true);
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInputFromInputMethod(edittext.getWindowToken(),0);
     }
 
-    public void hide(EditText edittext,Context context){
+    public static void hide(EditText edittext,Context context){
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(edittext.getWindowToken() , 0);
     }
 
-    public void dialogShow(Dialog dialog){
+    public static void dialogShow(Dialog dialog){
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
