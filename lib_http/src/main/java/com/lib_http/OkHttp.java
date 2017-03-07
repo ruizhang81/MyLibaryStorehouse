@@ -26,6 +26,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 public class OkHttp {
 
+    private final static String TAG = "Http_TAG";
     private final static long connectTimeout = 60l;
     private final static long readTimeout = 60l;
     private final static long writeTimeout = 60l;
@@ -54,7 +55,7 @@ public class OkHttp {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                Log.e("http"," Interceptor= "+message);
+                Log.e(TAG," Interceptor= "+message);
             }
         });
         loggingInterceptor.setLevel(level);
@@ -111,7 +112,6 @@ public class OkHttp {
                         String key = iter.next();
                         String value = baseParam.get(key);
                         newBuilder.addQueryParameter(key, value);
-                        Log.e("http"," base add param key= "+key+" value="+value);
                     }
                 }
                 // 新的请求
