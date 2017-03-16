@@ -1,0 +1,11 @@
+<resources>
+
+    <!--webview 顶部进度条 -->
+    <style name="H5ProgressBar" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/progress_h5</item>
+        <item name="android:indeterminateDrawable">@drawable/progress_h5</item>
+        <item name="android:minHeight">5dip</item>
+        <item name="android:maxHeight">5dip</item>
+    </style>
+</resources>

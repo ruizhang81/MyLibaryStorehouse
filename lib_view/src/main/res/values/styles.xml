@@ -11,14 +11,7 @@
         <item name="android:textColor">@color/base_btn_text_color</item>
     </style>
 
-    <!--webview 顶部进度条 -->
-    <style name="H5ProgressBar" parent="android:Widget.ProgressBar.Horizontal">
-        <item name="android:indeterminateOnly">false</item>
-        <item name="android:progressDrawable">@drawable/progress_h5</item>
-        <item name="android:indeterminateDrawable">@drawable/progress_h5</item>
-        <item name="android:minHeight">5dip</item>
-        <item name="android:maxHeight">5dip</item>
-    </style>
+
 
     <!-- 底部选择菜单 -->
     <style name="contact_popup_anim_bottom" parent="@android:style/Animation">
