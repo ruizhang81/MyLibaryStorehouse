@@ -16,6 +16,11 @@
         <activity
             android:name="client.bluerhino.cn.lib_image.imagebrowse.photoselector.ui.PhotoPreviewActivity"
             android:label="图片预览"></activity>
+
+        <activity
+            android:name="client.bluerhino.cn.lib_image.upload.MyGalleryUrlActivity"
+            android:label="图片预览"></activity>
+
     </application>
 
 </manifest>

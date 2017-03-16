@@ -1,4 +1,4 @@
-package com.lib_view.view;
+package client.bluerhino.cn.lib_image.upload;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,13 +8,15 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import client.bluerhino.cn.lib_image.upload.bean.UploadImageStatus;
+
 
 /**
  * Created by zhangrui on 3/10/16.
  */
 public class ImageProgressView extends ImageView {
 
-    public ImageProgressView.UploadImageStatus uploadImageStatus = new UploadImageStatus();
+    public UploadImageStatus uploadImageStatus = new UploadImageStatus();
     private Paint mPaint;
 
     public ImageProgressView(Context context) {
@@ -96,27 +98,5 @@ public class ImageProgressView extends ImageView {
     }
 
 
-    public class UploadImageStatus {
 
-        public final static int image_normal = 0;
-        public final static int upload_ready = 1;
-        public final static int upload_working = 2;
-        public final static int upload_success = 3;
-        public final static int upload_fail = 4;
-
-        public String servicePath;
-        public int progress;
-        public int status;
-
-        public UploadImageStatus() {
-            this.status = image_normal;//初始化的时候是普通显示
-        }
-
-        public UploadImageStatus(String servicePath, int progress) {
-            this.servicePath = servicePath;
-            this.progress = 100;
-            this.status = upload_success;
-        }
-
-    }
 }

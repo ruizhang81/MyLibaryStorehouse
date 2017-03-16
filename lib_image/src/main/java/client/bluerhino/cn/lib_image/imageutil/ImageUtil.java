@@ -211,7 +211,7 @@ public class ImageUtil {
          * isCut:是否需要裁剪
          * 无论哪种方案都需要压缩图片(如果需要裁剪则不壓縮图片尺寸，以免影响分辨率)
          */
-        public static void actionByIndex(Activity activity, int type, int index) {
+        public static void actionByIndex(Activity activity, long index) {
             CutFilePath = null;
             boolean sdCardExist = Environment.getExternalStorageState()
                     .equals(Environment.MEDIA_MOUNTED); //判断sd卡是否存在
@@ -222,7 +222,6 @@ public class ImageUtil {
             Intent intent = new Intent(activity, PhotoSelectorActivity.class);
             intent.putExtra(PhotoSelectorActivity.KEY_MAX, PhotoSelectorActivity.SINGLE_IMAGE);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            intent.putExtra(PhotoSelectorActivity.pic_type, type);
             intent.putExtra(PhotoSelectorActivity.pic_index, index);
             activity.startActivityForResult(intent, Gallery);
         }
