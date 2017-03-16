@@ -131,9 +131,16 @@ public class MyImageLayout extends RelativeLayout {
                 } else {
                     if (TextUtils.isEmpty(mImageInfo.url)) {
                         if (TextUtils.isEmpty(mImageInfo.localUrl)) {
+                            //本地图和远程图都没，就去取图
                             getLocalPic(activity);
                         } else {
-                            browserBigPic(activity);
+                            if(mImageInfo.status == UploadImageStatus.upload_fail){
+                                //远程图没，本地有，而且上传失败，就重新上传
+                                upload();
+                            }else{
+                                //远程图没，本地有，不是上传失败，就查看大图
+                                browserBigPic(activity);
+                            }
                         }
                     } else {
                         if (TextUtils.isEmpty(mImageInfo.localUrl)) {
@@ -148,22 +155,24 @@ public class MyImageLayout extends RelativeLayout {
     }
 
 
-    public void onActivityResult(Activity activity, int requestCode, int resultCode, final Intent data) {
+    public boolean onActivityResult(Activity activity, int requestCode, int resultCode, final Intent data) {
         int pic_index = data.getIntExtra(PhotoSelectorActivity.pic_index, -1);
-        if (pic_index == clickTime) {
+        if (pic_index == clickTime) {//判断点击的是不是自己
             ImageUtil.GetPic.onGetPicByResult(activity, requestCode, resultCode, data, new ImageUtil.GetPic.OnImageGetListener() {
                 @Override
                 public void onImageGetListener(List<String> path) {
                     if (path != null && path.size() > 0) {
                         mImageInfo.localUrl = path.get(0);
-                        if (mImageInfo.autoUpload) {
-                            upload();
-                        }
+//                        if (mImageInfo.autoUpload) {
+//
+//                        }
+                        upload();
                     }
                 }
             });
+            return true;
         }
-
+        return false;
     }
 
     public void upload() {
