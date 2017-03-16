@@ -58,7 +58,7 @@ public class MyImageLayout extends RelativeLayout {
         void onClickLinstener();
     }
     public interface OnDelClickLinstener {
-        void onDelClickLinstener();
+        void onDelClickLinstener(ImageInfo mImageInfo);
     }
     public void setNewClickLinstener(NewClickLinstener listener) {
         mListener = listener;
@@ -250,7 +250,7 @@ public class MyImageLayout extends RelativeLayout {
         mImageInfo.localUrl = "";
         del.setVisibility(GONE);
         if(mDelListener!=null){
-            mDelListener.onDelClickLinstener();
+            mDelListener.onDelClickLinstener(mImageInfo);
         }
     }
 
@@ -263,6 +263,12 @@ public class MyImageLayout extends RelativeLayout {
             if (!TextUtils.isEmpty(mImageInfo.url)) {
                 ImageLoad.load(getContext(), pic, mImageInfo.url);
             }else{
+                pic.setImageResource(R.drawable.icon_pic_add);
+                pic.uploadImageStatus.progress = 0;
+                pic.uploadImageStatus.status = pic.uploadImageStatus.image_normal;
+                pic.update();
+                mImageInfo.url = "";
+                mImageInfo.localUrl = "";
                 del.setVisibility(GONE);
             }
         }

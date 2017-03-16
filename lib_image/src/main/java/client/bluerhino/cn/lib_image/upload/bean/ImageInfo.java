@@ -3,6 +3,7 @@ package client.bluerhino.cn.lib_image.upload.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.Settings;
 
 /**
  * Created by zhangrui on 17/3/14.
@@ -10,6 +11,7 @@ import android.os.Parcelable;
 
 public class ImageInfo implements Parcelable{
 
+    private long id;
     public String localUrl;
     public String url;
     public String name;
@@ -26,12 +28,14 @@ public class ImageInfo implements Parcelable{
 
 
     public ImageInfo() {
+        id = System.nanoTime();
         canDeleteUrl = true;
         onlyReplace = false;
     }
 
 
     protected ImageInfo(Parcel in) {
+        id = in.readLong();
         localUrl = in.readString();
         url = in.readString();
         name = in.readString();
@@ -65,6 +69,7 @@ public class ImageInfo implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
         dest.writeString(localUrl);
         dest.writeString(url);
         dest.writeString(name);
@@ -77,5 +82,16 @@ public class ImageInfo implements Parcelable{
         dest.writeString(image_name);
         dest.writeString(image_level);
         dest.writeString(image_cerauth);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this!=null && obj!=null){
+            if(obj instanceof ImageInfo){
+                ImageInfo that = (ImageInfo)obj;
+                return id==that.id;
+            }
+        }
+        return false;
     }
 }
