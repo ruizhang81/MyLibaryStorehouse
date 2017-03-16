@@ -6,6 +6,7 @@ import android.view.View;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
@@ -35,6 +36,16 @@ public class WebViewHelp {
         frame = (FrameLayout) activity.findViewById(R.id.frame);
         mProgressBar = (ProgressBar) activity.findViewById(R.id.h5_progress);
         frame.addView(mWebView);
+
+
+
+        mWebView.getSettings().setDefaultTextEncodingName("utf-8");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING);
+        } else {
+            mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
+        }
+
 
         mWebView.setWebChromeClient(new WebChromeClient() {
             @Override
