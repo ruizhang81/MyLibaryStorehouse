@@ -262,6 +262,11 @@ public class MyImageLayout extends RelativeLayout {
         } else {
             if (!TextUtils.isEmpty(mImageInfo.url)) {
                 ImageLoad.load(getContext(), pic, mImageInfo.url);
+                if (mImageInfo.canDeleteUrl) {
+                    del.setVisibility(VISIBLE);
+                } else {
+                    del.setVisibility(GONE);
+                }
             }else{
                 pic.setImageResource(R.drawable.icon_pic_add);
                 pic.uploadImageStatus.progress = 0;
