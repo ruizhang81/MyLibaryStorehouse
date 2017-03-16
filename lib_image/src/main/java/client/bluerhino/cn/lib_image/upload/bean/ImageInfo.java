@@ -26,7 +26,8 @@ public class ImageInfo implements Parcelable{
 
 
     public ImageInfo() {
-
+        canDeleteUrl = true;
+        onlyReplace = false;
     }
 
 

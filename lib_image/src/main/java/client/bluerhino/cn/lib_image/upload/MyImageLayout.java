@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -46,6 +47,7 @@ public class MyImageLayout extends RelativeLayout {
 
     private long clickTime;
     private NewClickLinstener mListener;
+    private OnDelClickLinstener mDelListener;
     private ImageProgressView pic;
     private TextView name;
     private ImageView del;
@@ -55,9 +57,14 @@ public class MyImageLayout extends RelativeLayout {
     public interface NewClickLinstener {
         void onClickLinstener();
     }
-
+    public interface OnDelClickLinstener {
+        void onDelClickLinstener();
+    }
     public void setNewClickLinstener(NewClickLinstener listener) {
         mListener = listener;
+    }
+    public void setDelClickLinstener(OnDelClickLinstener listener) {
+        mDelListener = listener;
     }
 
     private Handler handler = new Handler() {
@@ -156,13 +163,15 @@ public class MyImageLayout extends RelativeLayout {
 
 
     public boolean onActivityResult(Activity activity, int requestCode, int resultCode, final Intent data) {
-        int pic_index = data.getIntExtra(PhotoSelectorActivity.pic_index, -1);
+        long pic_index = data.getLongExtra(PhotoSelectorActivity.pic_index, -1);
         if (pic_index == clickTime) {//判断点击的是不是自己
             ImageUtil.GetPic.onGetPicByResult(activity, requestCode, resultCode, data, new ImageUtil.GetPic.OnImageGetListener() {
                 @Override
                 public void onImageGetListener(List<String> path) {
                     if (path != null && path.size() > 0) {
                         mImageInfo.localUrl = path.get(0);
+                        mImageInfo.url = "";
+                        update();
 //                        if (mImageInfo.autoUpload) {
 //
 //                        }
@@ -240,6 +249,9 @@ public class MyImageLayout extends RelativeLayout {
         mImageInfo.url = "";
         mImageInfo.localUrl = "";
         del.setVisibility(GONE);
+        if(mDelListener!=null){
+            mDelListener.onDelClickLinstener();
+        }
     }
 
     private void update() {
@@ -250,8 +262,8 @@ public class MyImageLayout extends RelativeLayout {
         } else {
             if (!TextUtils.isEmpty(mImageInfo.url)) {
                 ImageLoad.load(getContext(), pic, mImageInfo.url);
-            } else {
-                deleteImage();
+            }else{
+                del.setVisibility(GONE);
             }
         }
     }
