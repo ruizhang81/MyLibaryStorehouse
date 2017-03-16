@@ -18,7 +18,6 @@ public class ImageInfo implements Parcelable{
     public int type;
     public int status;
     public int progress;
-    public boolean canDeleteUrl; //是否可以删除远程图片
     public boolean onlyReplace; //仅能替换远程图片
 //    public boolean autoUpload;
     //其他信息
@@ -29,7 +28,6 @@ public class ImageInfo implements Parcelable{
 
     public ImageInfo() {
         id = System.nanoTime();
-        canDeleteUrl = true;
         onlyReplace = false;
     }
 
@@ -42,7 +40,6 @@ public class ImageInfo implements Parcelable{
         type = in.readInt();
         status = in.readInt();
         progress = in.readInt();
-        canDeleteUrl = in.readByte() != 0;
         onlyReplace = in.readByte() != 0;
 //        autoUpload = in.readByte() != 0;
         image_name = in.readString();
@@ -76,7 +73,6 @@ public class ImageInfo implements Parcelable{
         dest.writeInt(type);
         dest.writeInt(status);
         dest.writeInt(progress);
-        dest.writeByte((byte) (canDeleteUrl ? 1 : 0));
         dest.writeByte((byte) (onlyReplace ? 1 : 0));
 //        dest.writeByte((byte) (autoUpload ? 1 : 0));
         dest.writeString(image_name);

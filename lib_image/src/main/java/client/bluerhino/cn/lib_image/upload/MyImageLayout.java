@@ -104,11 +104,7 @@ public class MyImageLayout extends RelativeLayout {
         del.setImageResource(R.drawable.icon_image_delete);
         //初始条件下有远程图的情况下
         if (!TextUtils.isEmpty(mImageInfo.url)) {
-            if (mImageInfo.canDeleteUrl) {
-                del.setVisibility(VISIBLE);
-            } else {
-                del.setVisibility(GONE);
-            }
+            del.setVisibility(VISIBLE);
 
             if (mImageInfo.onlyReplace) {
                 //只能替换
@@ -262,11 +258,7 @@ public class MyImageLayout extends RelativeLayout {
         } else {
             if (!TextUtils.isEmpty(mImageInfo.url)) {
                 ImageLoad.load(getContext(), pic, mImageInfo.url);
-                if (mImageInfo.canDeleteUrl) {
-                    del.setVisibility(VISIBLE);
-                } else {
-                    del.setVisibility(GONE);
-                }
+                del.setVisibility(VISIBLE);
             }else{
                 pic.setImageResource(R.drawable.icon_pic_add);
                 pic.uploadImageStatus.progress = 0;
