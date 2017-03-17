@@ -20,6 +20,6 @@ android {
 }
 
 dependencies {
-    compile rootProject.ext.dependencies.support
+    provided rootProject.ext.dependencies.support
 
 }

@@ -20,5 +20,5 @@ android {
 }
 
 dependencies {
-    compile rootProject.ext.dependencies.appcompatV7
+    provided rootProject.ext.dependencies.appcompatV7
 }
