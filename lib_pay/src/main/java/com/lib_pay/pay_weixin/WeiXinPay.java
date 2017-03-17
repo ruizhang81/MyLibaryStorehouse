@@ -1,6 +1,7 @@
 package com.lib_pay.pay_weixin;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -25,6 +26,16 @@ public class WeiXinPay {
         request.nonceStr = weiXinPayConfig.getNoncestr();
         request.timeStamp = weiXinPayConfig.getTimestamp();
         request.sign = weiXinPayConfig.getSign();
+
+        Log.e("xxx","appId="+request.appId);
+        Log.e("xxx","partnerId="+request.partnerId);
+        Log.e("xxx","prepayId="+request.prepayId);
+        Log.e("xxx","packageValue="+request.packageValue);
+        Log.e("xxx","nonceStr="+request.nonceStr);
+        Log.e("xxx","timeStamp="+request.timeStamp);
+        Log.e("xxx","sign="+request.sign);
+
+//        api.registerApp(request.appId);
         api.sendReq(request);
     }
 }
