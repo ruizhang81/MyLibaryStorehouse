@@ -167,7 +167,7 @@ public class SelectBottomDialogTextView extends RelativeLayout {
         text.setHint(str);
     }
 
-    private void setTextColor(int color) {
+    public void setTextColor(int color) {
         text.setTextColor(color);
     }
 

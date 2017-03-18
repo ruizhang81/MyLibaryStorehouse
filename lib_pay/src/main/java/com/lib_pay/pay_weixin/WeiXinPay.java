@@ -27,13 +27,13 @@ public class WeiXinPay {
         request.timeStamp = weiXinPayConfig.getTimestamp();
         request.sign = weiXinPayConfig.getSign();
 
-        Log.e("xxx","appId="+request.appId);
-        Log.e("xxx","partnerId="+request.partnerId);
-        Log.e("xxx","prepayId="+request.prepayId);
-        Log.e("xxx","packageValue="+request.packageValue);
-        Log.e("xxx","nonceStr="+request.nonceStr);
-        Log.e("xxx","timeStamp="+request.timeStamp);
-        Log.e("xxx","sign="+request.sign);
+//        Log.e("xxx","appId="+request.appId);
+//        Log.e("xxx","partnerId="+request.partnerId);
+//        Log.e("xxx","prepayId="+request.prepayId);
+//        Log.e("xxx","packageValue="+request.packageValue);
+//        Log.e("xxx","nonceStr="+request.nonceStr);
+//        Log.e("xxx","timeStamp="+request.timeStamp);
+//        Log.e("xxx","sign="+request.sign);
 
 //        api.registerApp(request.appId);
         api.sendReq(request);
