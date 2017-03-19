@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.util.Log;
 
 /**
  * Created by zhangrui on 2/22/16.
@@ -15,29 +16,32 @@ public class CameraUtil {
 
     public static boolean check(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!(activity.checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)) {
-                requestCameraPermission(activity);
-                return false;
-            } else {
+            PackageManager pm = activity.getPackageManager();
+            boolean permission = (PackageManager.PERMISSION_GRANTED ==
+                    pm.checkPermission(Manifest.permission.CAMERA, "packageName"));
+            if (permission) {
                 return true;
+            }else {
+                activity.requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA_CODE);
+                return false;
             }
         } else {
             return true;
         }
-    }
 
-    @TargetApi(Build.VERSION_CODES.M)
-    private static void requestCameraPermission(Activity activity) {
-        activity.requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSION_CAMERA_CODE);
     }
 
 
-    public static boolean onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+    public static boolean onRequestPermissionsResult(Activity activity,int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == REQUEST_PERMISSION_CAMERA_CODE) {
-            int grantResult = grantResults[0];
-            return grantResult == PackageManager.PERMISSION_GRANTED;
-        } else {
-            return false;
+            if(grantResults.length>0){
+                Log.e("xxx","grantResults[0]="+grantResults[0]);
+                boolean result = (grantResults[0] == PackageManager.PERMISSION_GRANTED);
+//                save(activity);
+                return true;
+            }
         }
+        return false;
     }
 }
