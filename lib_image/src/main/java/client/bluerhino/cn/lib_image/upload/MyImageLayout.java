@@ -269,6 +269,9 @@ public class MyImageLayout extends RelativeLayout {
                 del.setVisibility(GONE);
             }
         }
+        if(mImageInfo.alwaysHidenDel){
+            del.setVisibility(GONE);
+        }
     }
 
     private void uploadUpdate(int status, int progress) {
@@ -282,6 +285,9 @@ public class MyImageLayout extends RelativeLayout {
             del.setVisibility(GONE);
         } else {
             del.setVisibility(VISIBLE);
+        }
+        if(mImageInfo.alwaysHidenDel){
+            del.setVisibility(GONE);
         }
     }
 

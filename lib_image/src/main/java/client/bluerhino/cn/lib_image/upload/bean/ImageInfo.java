@@ -19,7 +19,7 @@ public class ImageInfo implements Parcelable{
     public int status;
     public int progress;
     public boolean onlyReplace; //仅能替换远程图片
-//    public boolean autoUpload;
+    public boolean alwaysHidenDel; //一直隐藏删除按钮
     //其他信息
     public String image_name;
     public String image_level;
@@ -45,6 +45,7 @@ public class ImageInfo implements Parcelable{
         image_name = in.readString();
         image_level = in.readString();
         image_cerauth = in.readString();
+        alwaysHidenDel= in.readByte() != 0;
     }
 
     public static final Creator<ImageInfo> CREATOR = new Creator<ImageInfo>() {
@@ -78,6 +79,7 @@ public class ImageInfo implements Parcelable{
         dest.writeString(image_name);
         dest.writeString(image_level);
         dest.writeString(image_cerauth);
+        dest.writeByte((byte) (alwaysHidenDel ? 1 : 0));
     }
 
     @Override
