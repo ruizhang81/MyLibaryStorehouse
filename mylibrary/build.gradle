@@ -54,7 +54,7 @@ def _email = 'ruizhang81@gmail.com'
 def _user = 'rui'
 def _apikey = '260e869279016b3621332bd85045e88f7f13949f'
 
-version "0.9944"
+version "0.9946"
 group = "com.mylibrary"
 
 

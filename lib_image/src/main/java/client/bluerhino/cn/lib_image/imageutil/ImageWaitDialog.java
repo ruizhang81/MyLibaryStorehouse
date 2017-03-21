@@ -8,21 +8,21 @@ import client.bluerhino.cn.lib_image.R;
 /**
  * 等待dialog封装
  **/
-public class WaitDialog extends ProgressDialog {
-    private static WaitDialog mDialog;
+public class ImageWaitDialog extends ProgressDialog {
+    private static ImageWaitDialog mDialog;
     private static boolean isShowing;
 
-    public WaitDialog(Context context) {
+    public ImageWaitDialog(Context context) {
         super(context);
     }
 
-    public static WaitDialog build(Context context) {
+    public static ImageWaitDialog build(Context context) {
         return build(context, R.string.dialog_wait);
     }
 
-    public static WaitDialog build(Context context, int res) {
+    public static ImageWaitDialog build(Context context, int res) {
         if (!isShowing) {
-            mDialog = new WaitDialog(context);
+            mDialog = new ImageWaitDialog(context);
             mDialog.setProgressStyle(R.style.CustomProgressDialog);
             mDialog.setCanceledOnTouchOutside(false);
             mDialog.setMessage(context.getString(res));

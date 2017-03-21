@@ -334,7 +334,7 @@ public class ImageUtil {
          **/
         private static void compressAndCutAndSave(final Activity activity, final OnImageGetListener listner, final List<String> paths) {
             final int size = paths.size();
-            WaitDialog.build(activity).show();
+            ImageWaitDialog.build(activity).show();
             new AsyncTask<Void, Integer, List<String>>() {
                 @Override
                 protected List<String> doInBackground(Void[] params) {
@@ -361,12 +361,12 @@ public class ImageUtil {
 
                 @Override
                 protected void onProgressUpdate(Integer... values) {
-                    WaitDialog.update(values[0] + "/" + size);
+                    ImageWaitDialog.update(values[0] + "/" + size);
                 }
 
                 @Override
                 protected void onPostExecute(List<String> list) {
-                    WaitDialog.dis();
+                    ImageWaitDialog.dis();
                     if (listner != null && list != null) {
                         listner.onImageGetListener(list);
                     }
