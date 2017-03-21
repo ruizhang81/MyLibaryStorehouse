@@ -78,10 +78,12 @@ public abstract class GetCodeEditText extends RelativeLayout {
             public void afterTextChanged(Editable s) {
                 if (s.toString().replaceAll(" ", "").length() >= 11) {
                     mBtnGetCode.setEnabled(true);
+                    mBtnGetCode.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
                     mBtnGetCode.setText("获取验证码");
                     mCurrentCountDownTime = GET_CODE_MAX_TIME;
                     mCountDownTimer.cancel();
                 } else {
+                    mBtnGetCode.setTextColor(ContextCompat.getColor(getContext(), R.color.color_base_btn_disable_text));
                     mBtnGetCode.setEnabled(false);
                 }
 
