@@ -289,6 +289,13 @@ public class MyImageLayout extends RelativeLayout {
         if(mImageInfo.alwaysHidenDel){
             del.setVisibility(GONE);
         }
+        if (mImageInfo.onlyReplace) {
+            //只能替换
+            del.setImageResource(R.drawable.icon_image_setting);
+        } else {
+            //可以删除
+            del.setImageResource(R.drawable.icon_image_delete);
+        }
     }
 
 
