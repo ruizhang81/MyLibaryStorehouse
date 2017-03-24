@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- 主题颜色 -->
+    <color name="main_color">#FF4081</color>
+
+
+    <!-- 基础颜色 -->
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="transparent">@android:color/transparent</color>
-
-
-    <!-- 半透明 -->
     <color name="half_transparent">#40000000</color>
 
     <!-- toast -->
-    <color name="color_toast_bg">#e91e63</color>
-    <color name="color_toast_text">#ffffff</color>
+    <color name="color_toast_bg">@color/main_color</color>
+    <color name="color_toast_text">@color/white</color>
 
-    <!-- edittext -->
+    <!-- editText color -->
     <color name="color_edit_text">#5a5a5a</color>
     <color name="color_edit_hint">#999999</color>
     <color name="color_edit_bg">#f5f8f9</color>
 
-    <!-- TEXT COLOR -->
-    <color name="text_sub">#999999</color>
+    <!--text color -->
+    <color name="text_sub">#666666</color>
     <color name="text_main">#5b5a5a</color>
-    <color name="text_red">#e91e63</color>
-
+    <color name="text_red">@color/main_color</color>
 
     <!-- BUTTON -->
     <!-- 可按 背景色-->
@@ -31,13 +32,15 @@
     <color name="color_base_btn_disable_bg">#e8e8e8</color>
     <!-- 按下 背景色-->
     <color name="color_base_btn_press_bg">#a21446</color>
+
     <!-- 可按 字颜色 -->
-    <color name="color_base_btn_disable_text">#ffffff</color>
-    !-- 不可按 字颜色 -->
-    <color name="color_base_btn_text">#ffffff</color>
+    <color name="color_base_btn_disable_text">@color/white</color>
+    <!-- 不可按 字颜色 -->
+    <color name="color_base_btn_text">@color/white</color>
     <!-- 按下 字颜色 -->
-    <color name="color_base_btn_press_text">#ffffff</color>
+    <color name="color_base_btn_press_text">@color/white</color>
 
     <!-- v_text_color -->
-    <color name="v_text_color">#e91e63</color>
+    <color name="v_text_color">@color/main_color</color>
+
 </resources>
