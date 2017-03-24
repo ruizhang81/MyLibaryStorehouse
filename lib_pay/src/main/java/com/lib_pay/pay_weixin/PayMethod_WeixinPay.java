@@ -13,13 +13,10 @@ public class PayMethod_WeixinPay implements IPayMethod {
 
     @Override
     public void init(String... args) throws Exception {
-        if (args.length != 4) {
+        if (args.length <= 0) {
             throw new Exception("args error");
         }
-        Constants.APP_ID = args[0];//wx3d706f05dda1a140
-        Constants.MCH_ID = args[1];//1237893502
-        Constants.API_KEY = args[2];//e5031c7b30603fdbe7cb051eb27600ae
-        Constants.WeiXinPayConfigStr = args[3]; //jsonStr
+        Constants.WeiXinPayConfigStr = args[1]; //jsonStr
     }
 
     @Override
