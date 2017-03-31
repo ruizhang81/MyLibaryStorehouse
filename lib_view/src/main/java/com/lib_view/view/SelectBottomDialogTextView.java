@@ -1,5 +1,6 @@
 package com.lib_view.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -76,6 +78,11 @@ public class SelectBottomDialogTextView extends RelativeLayout {
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                if (getWindowToken() != null) {
+                    manager.hideSoftInputFromWindow(getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                }
+
                 if (parent == null || popWindowItemList.size() == 0) {
                     return;
                 }
