@@ -1,19 +1,20 @@
 ext {
 
     android = [
-            compileSdkVersion: 24,
+            compileSdkVersion: 25,
             buildToolsVersion: "25.0.0",
             minSdkVersion    : 15,
             targetSdkVersion : 19,
             versionCode      : 1,
             versionName      : "0.1",
             applicationId    : "com.mylibarystorehouse",
-            supportVersion   : "24.2.1"
+            supportVersion   : "25.2.0"
     ]
 
     dependencies = [
             appcompatV7        : "com.android.support:appcompat-v7:$android.supportVersion",
             support            : "com.android.support:support-v4:$android.supportVersion",
+            support13          : "com.android.support:support-v13:$android.supportVersion",
             design             : "com.android.support:design:$android.supportVersion",
             recyclerview       : "com.android.support:recyclerview-v7:$android.supportVersion",
             glide              : "com.github.bumptech.glide:glide:3.7.0",

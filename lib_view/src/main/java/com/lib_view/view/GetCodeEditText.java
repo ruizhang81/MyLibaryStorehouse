@@ -83,7 +83,7 @@ public abstract class GetCodeEditText extends RelativeLayout {
                     mCurrentCountDownTime = GET_CODE_MAX_TIME;
                     mCountDownTimer.cancel();
                 } else {
-                    mBtnGetCode.setTextColor(ContextCompat.getColor(getContext(), R.color.color_base_btn_disable_text));
+                    mBtnGetCode.setTextColor(ContextCompat.getColor(getContext(), R.color.text_main));
                     mBtnGetCode.setEnabled(false);
                 }
 
