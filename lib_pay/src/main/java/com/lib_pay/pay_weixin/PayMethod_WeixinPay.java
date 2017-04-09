@@ -16,7 +16,7 @@ public class PayMethod_WeixinPay implements IPayMethod {
         if (args.length <= 0) {
             throw new Exception("args error");
         }
-        Constants.WeiXinPayConfigStr = args[1]; //jsonStr
+        Constants.WeiXinPayConfigStr = args[0]; //jsonStr
     }
 
     @Override
