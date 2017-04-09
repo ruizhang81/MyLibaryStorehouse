@@ -10,6 +10,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 
@@ -20,7 +21,7 @@ import android.widget.ProgressBar;
 public class WebViewHelp {
 
     private WebView mWebView;
-    private FrameLayout frame;
+    private LinearLayout frame;
     private ProgressBar mProgressBar;
 
     public interface WebViewHelpCallback{
@@ -33,7 +34,7 @@ public class WebViewHelp {
 
     public WebViewHelp(Activity activity, String loadUrl, final WebViewHelpCallback callback){
         mWebView = new WebView(activity.getApplicationContext());
-        frame = (FrameLayout) activity.findViewById(R.id.frame);
+        frame = (LinearLayout) activity.findViewById(R.id.frame);
         mProgressBar = (ProgressBar) activity.findViewById(R.id.h5_progress);
         frame.addView(mWebView);
 

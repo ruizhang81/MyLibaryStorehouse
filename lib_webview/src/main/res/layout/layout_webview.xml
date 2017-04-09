@@ -12,9 +12,10 @@
         android:layout_height="3dp"
         android:max="100" />
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"/>
 
 </LinearLayout>
