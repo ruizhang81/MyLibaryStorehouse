@@ -76,23 +76,30 @@ public class MyImageLayout extends RelativeLayout {
 
     public MyImageLayout(Context context) {
         super(context);
+        initView();
     }
 
     public MyImageLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        initView();
     }
 
     public MyImageLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initView();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public MyImageLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        initView();
+    }
+
+    private void initView(){
+        LayoutInflater.from(getContext()).inflate(R.layout.layout_image, this);
     }
 
     public void init(final Activity activity, ImageInfo imageInfo) {
-        LayoutInflater.from(getContext()).inflate(R.layout.layout_image, this);
         pic = (ImageProgressView) findViewById(R.id.pic);
         name = (TextView) findViewById(R.id.name);
         del = (ImageView) findViewById(R.id.del);
