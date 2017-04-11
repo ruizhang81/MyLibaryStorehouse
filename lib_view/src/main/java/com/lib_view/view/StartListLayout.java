@@ -50,14 +50,14 @@ public class StartListLayout extends LinearLayout {
         params.weight = 1.0f;
         for (int i = 0; i < max; i++) {
             ImageView image = new ImageView(getContext());
-            setImageSelected(image,i < level - 1);
+            setImageSelected(image, i > level - 1);
             addView(image, params);
         }
 
         int count = getChildCount();
-        for(int i=0;i<count;i++){
+        for (int i = 0; i < count; i++) {
             final int index = i;
-            getChildAt(i).setOnClickListener(new OnClickListener() {
+            getChildAt(index).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     selectIndex(index);
@@ -66,22 +66,22 @@ public class StartListLayout extends LinearLayout {
         }
     }
 
-    public int getLevel(){
+    public int getLevel() {
         return mIndex;
     }
 
-    private void setImageSelected(ImageView imageview,boolean bool){
-        if(bool){
-            imageview.setImageResource(R.drawable.star_press);
-        }else{
+    private void setImageSelected(ImageView imageview, boolean bool) {
+        if (bool) {
             imageview.setImageResource(R.drawable.star);
+        } else {
+            imageview.setImageResource(R.drawable.star_press);
         }
     }
 
-    private void selectIndex(int index){
+    private void selectIndex(int index) {
         int count = getChildCount();
-        for(int i=0;i< count;i++){
-            setImageSelected((ImageView)getChildAt(i),i>=index);
+        for (int i = 0; i < count; i++) {
+            setImageSelected((ImageView) getChildAt(i), i > index);
         }
         mIndex = index;
     }
