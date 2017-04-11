@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -16,6 +17,7 @@ import com.lib_view.R;
 
 public class StartListLayout extends LinearLayout {
 
+    private int mIndex;
 
     public StartListLayout(Context context) {
         super(context);
@@ -46,16 +48,42 @@ public class StartListLayout extends LinearLayout {
         removeAllViews();
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         params.weight = 1.0f;
-        ImageView image;
         for (int i = 0; i < max; i++) {
-            image = new ImageView(getContext());
-            if (i < level - 1) {
-                image.setImageResource(R.drawable.star_press);
-            } else {
-                image.setImageResource(R.drawable.star);
-            }
+            ImageView image = new ImageView(getContext());
+            setImageSelected(image,i < level - 1);
             addView(image, params);
         }
+
+        int count = getChildCount();
+        for(int i=0;i<count;i++){
+            final int index = i;
+            getChildAt(i).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    selectIndex(index);
+                }
+            });
+        }
+    }
+
+    public int getLevel(){
+        return mIndex;
+    }
+
+    private void setImageSelected(ImageView imageview,boolean bool){
+        if(bool){
+            imageview.setImageResource(R.drawable.star_press);
+        }else{
+            imageview.setImageResource(R.drawable.star);
+        }
+    }
+
+    private void selectIndex(int index){
+        int count = getChildCount();
+        for(int i=0;i< count;i++){
+            setImageSelected((ImageView)getChildAt(i),i>=index);
+        }
+        mIndex = index;
     }
 
 
