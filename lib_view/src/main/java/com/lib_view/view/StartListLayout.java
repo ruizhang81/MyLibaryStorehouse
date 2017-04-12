@@ -44,7 +44,11 @@ public class StartListLayout extends LinearLayout {
         setOrientation(HORIZONTAL);
     }
 
-    public void setLevel(int max, int level) {
+    public interface OnSelectListener{
+        void onSelect(int index);
+    }
+
+    public void setLevel(int max, int level,final OnSelectListener listener) {
         removeAllViews();
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         params.weight = 1.0f;
@@ -61,6 +65,9 @@ public class StartListLayout extends LinearLayout {
                 @Override
                 public void onClick(View view) {
                     selectIndex(index);
+                    if(listener!=null){
+                        listener.onSelect(index);
+                    }
                 }
             });
         }
