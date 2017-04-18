@@ -15,8 +15,8 @@ import retrofit2.http.Part;
 
 public interface ApiInterface {
 
-    String BASE_DOMAIN = "http://test.lanxiniu.com";
-    String BASE_PORT = "9189";
+    String BASE_DOMAIN = "http://api.mijingkeji.com/";
+    String BASE_PORT = "80";
 
 
 //    String BASE_DOMAIN = "http://test.lanxiniu.com";
