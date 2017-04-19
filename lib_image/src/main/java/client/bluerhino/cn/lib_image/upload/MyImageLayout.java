@@ -48,6 +48,7 @@ public class MyImageLayout extends RelativeLayout {
     private long clickTime;
     private NewClickLinstener mListener;
     private OnDelClickLinstener mDelListener;
+    private OnUploadSuccessListener onUploadSuccessListener;
     private ImageProgressView pic;
     private TextView name;
     private ImageView del;
@@ -60,11 +61,18 @@ public class MyImageLayout extends RelativeLayout {
     public interface OnDelClickLinstener {
         void onDelClickLinstener(ImageInfo mImageInfo);
     }
+    public interface OnUploadSuccessListener {
+        void onUploadSuccess();
+    }
+
     public void setNewClickLinstener(NewClickLinstener listener) {
         mListener = listener;
     }
     public void setDelClickLinstener(OnDelClickLinstener listener) {
         mDelListener = listener;
+    }
+    public void setOnUploadSuccessListener(OnUploadSuccessListener listener) {
+        onUploadSuccessListener = listener;
     }
 
     private Handler handler = new Handler() {
@@ -199,6 +207,9 @@ public class MyImageLayout extends RelativeLayout {
             public void onSuccess(Call<ResponseBean<ImageResult>> call, Response<ResponseBean<ImageResult>> response) {
                 uploadUpdate(UploadImageStatus.upload_success, 100);
                 mImageInfo.url = response.body().data.name;
+                if(onUploadSuccessListener!=null){
+                    onUploadSuccessListener.onUploadSuccess();
+                }
             }
 
             @Override
