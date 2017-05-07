@@ -46,7 +46,11 @@ public class WebViewHelp {
         } else {
             mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
         }
-
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        mWebView.getSettings().setBuiltInZoomControls(true);// support zoom
+        mWebView.getSettings().setUseWideViewPort(true);// 这个很关键
+        mWebView.getSettings().setLoadWithOverviewMode(true);
 
         mWebView.setWebChromeClient(new WebChromeClient() {
             @Override
