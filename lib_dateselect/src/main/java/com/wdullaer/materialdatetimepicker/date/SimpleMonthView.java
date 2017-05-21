@@ -18,8 +18,12 @@ package com.wdullaer.materialdatetimepicker.date;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+
+import com.lib_dateselect.R;
 
 public class SimpleMonthView extends MonthView {
 
@@ -35,10 +39,14 @@ public class SimpleMonthView extends MonthView {
                     mSelectedCirclePaint);
         }
 
+        mMonthNumPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+        //设置高亮颜色
         if (isHighlighted(year, month, day)) {
-            mMonthNumPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+            int color = Color.parseColor("#009688");
+            int colorValue =  Color.argb(255, Color.red(color), Color.green(color), Color.blue(color));
+            mMonthNumPaint.setColor(colorValue);
         } else {
-            mMonthNumPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+            mMonthNumPaint.setColor(mController.getAccentColor());
         }
 
         // If we have a mindate or maxdate, gray out the day number if it's outside the range.
