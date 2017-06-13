@@ -64,7 +64,7 @@ public class TabListLayout extends LinearLayout {
         this.mListener = listener;
     }
 
-    public void addTab(List<String> nameList,,int screenW) {
+    public void addTab(List<String> nameList,int screenW) {
         List<Integer> resIdList = new ArrayList<>();
         for(String str:nameList){
             resIdList.add(0);
