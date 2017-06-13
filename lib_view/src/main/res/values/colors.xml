@@ -2,7 +2,7 @@
 <resources>
 
     <!-- 主题颜色 -->
-    <color name="main_color">#FF4081</color>
+    <color name="main_color">#e4223a</color>
 
 
     <!-- 基础颜色 -->
@@ -27,7 +27,7 @@
 
     <!-- BUTTON -->
     <!-- 可按 背景色-->
-    <color name="color_base_btn_bg">#ea1e63</color>
+    <color name="color_base_btn_bg">#e4223a</color>
     <!-- 不可按 背景色-->
     <color name="color_base_btn_disable_bg">#e8e8e8</color>
     <!-- 按下 背景色-->
