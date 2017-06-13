@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.lib_view.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,16 +64,26 @@ public class TabListLayout extends LinearLayout {
         this.mListener = listener;
     }
 
-    public void addTab(List<String> nameList, int screenW) {
+    public void addTab(List<String> nameList,,int screenW) {
+        List<Integer> resIdList = new ArrayList<>();
+        for(String str:nameList){
+            resIdList.add(0);
+        }
+        addTab(nameList, resIdList, screenW);
+    }
+
+    public void addTab(List<String> nameList, List<Integer> resIdList,int screenW) {
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         params.weight = 1.0f;
 
         int size = nameList.size();
         for (int i = 0; i < size; i++) {
             String name = nameList.get(i);
+            int res = resIdList.get(i);
             TabLayout tab = new TabLayout(getContext());
             tab.setText(name);
             tab.setTag(i);
+            tab.setImage(res);
             tab.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {

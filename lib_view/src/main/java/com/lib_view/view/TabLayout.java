@@ -6,6 +6,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -47,6 +48,15 @@ public class TabLayout extends LinearLayout {
     public void setText(String displayStr) {
         TextView title = (TextView) findViewById(R.id.title);
         title.setText(displayStr);
+    }
+
+    public void setImage(int res) {
+        if(res != 0){
+            ImageView image = (ImageView) findViewById(R.id.image);
+            image.setVisibility(VISIBLE);
+
+            image.setImageResource(res);
+        }
     }
 
     public void setTextenable(boolean enable) {

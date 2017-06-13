@@ -109,11 +109,6 @@ public class SelectBottomDialogTextView extends RelativeLayout {
 
     }
 
-    @Override
-    public void setBackgroundResource(int resid) {
-        setBackgroundResource(resid);
-    }
-
 
     public int getSelectItem() {
         return selectIndex;
