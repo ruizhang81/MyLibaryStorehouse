@@ -12,6 +12,7 @@ import android.provider.Settings;
 public class ImageInfo implements Parcelable{
 
     private long id;
+    public String outId;
     public String localUrl;
     public String url;
     public String name;
