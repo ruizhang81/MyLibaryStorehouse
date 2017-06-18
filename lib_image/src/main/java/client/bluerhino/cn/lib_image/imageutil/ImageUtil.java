@@ -33,7 +33,7 @@ public class ImageUtil {
 
     private final static String ImageUtilTAG = "ImageUtilTAG";
     private final static float cutSize = 640;
-    private final static int compressSize = 2048;
+    private final static int compressSize = 1024;
 
     //尺寸压缩
     public static byte[] compressImage(String path) {
