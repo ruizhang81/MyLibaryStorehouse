@@ -17,7 +17,7 @@ import com.lib_view.R;
 
 public class StartListLayout extends LinearLayout {
 
-    private int mIndex;
+    private int mIndex = -1;
 
     public StartListLayout(Context context) {
         super(context);
