@@ -15,6 +15,7 @@ public class CrashAndUpdateUtil {
 
     public static void init(Context context, String APPID, boolean isDebug) {
         Bugly.init(context, APPID, isDebug);
+        Bugly.setAppChannel(context, ChannelUtil.getChannel(context));
         checkUpdate(false);
     }
 
